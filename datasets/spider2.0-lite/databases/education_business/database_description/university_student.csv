@@ -1,0 +1,10 @@
+original_column_name,column_name,column_description,data_format,value_description
+StdNo,,,INTEGER,
+StdFirstName,,,TEXT,
+StdLastName,,,TEXT,
+StdCity,,,TEXT,
+StdState,,,TEXT,
+StdZip,,,TEXT,
+StdMajor,,,TEXT,
+StdClass,,,TEXT,
+StdGPA,,,REAL,

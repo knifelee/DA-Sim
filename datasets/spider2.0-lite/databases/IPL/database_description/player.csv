@@ -1,0 +1,7 @@
+original_column_name,column_name,column_description,data_format,value_description
+player_id,,,INTEGER,
+player_name,,,TEXT,
+dob,,,DATE,
+batting_hand,,,TEXT,
+bowling_skill,,,TEXT,
+country_name,,,TEXT,

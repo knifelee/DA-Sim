@@ -1,0 +1,10 @@
+original_column_name,column_name,column_description,data_format,value_description
+year,,,INTEGER,
+league_id,,,TEXT,
+team_id,,,TEXT,
+park_id,,,TEXT,
+span_first,,,TEXT,
+span_last,,,TEXT,
+games,,,INTEGER,
+openings,,,INTEGER,
+attendance,,,INTEGER,

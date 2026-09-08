@@ -1,0 +1,6 @@
+original_column_name,column_name,column_description,data_format,value_description
+geolocation_zip_code_prefix,,,INTEGER,
+geolocation_lat,,,REAL,
+geolocation_lng,,,REAL,
+geolocation_city,,,TEXT,
+geolocation_state,,,TEXT,

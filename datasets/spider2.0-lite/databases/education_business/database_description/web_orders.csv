@@ -1,0 +1,12 @@
+original_column_name,column_name,column_description,data_format,value_description
+id,,,INTEGER,
+account_id,,,INTEGER,
+occurred_at,,,TEXT,
+standard_qty,,,INTEGER,
+gloss_qty,,,INTEGER,
+poster_qty,,,INTEGER,
+total,,,INTEGER,
+standard_amt_usd,,,REAL,
+gloss_amt_usd,,,REAL,
+poster_amt_usd,,,REAL,
+total_amt_usd,,,REAL,

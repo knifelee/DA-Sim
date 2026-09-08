@@ -1,0 +1,10 @@
+original_column_name,column_name,column_description,data_format,value_description
+year,,,INTEGER,
+round,,,TEXT,
+team_id_winner,,,TEXT,
+league_id_winner,,,TEXT,
+team_id_loser,,,TEXT,
+league_id_loser,,,TEXT,
+wins,,,INTEGER,
+losses,,,INTEGER,
+ties,,,INTEGER,

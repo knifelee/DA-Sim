@@ -1,0 +1,11 @@
+original_column_name,column_name,column_description,data_format,value_description
+player_id,,,TEXT,
+year,,,INTEGER,
+team_id,,,TEXT,
+league_id,,,TEXT,
+inseason,,,INTEGER,
+half,,,INTEGER,
+g,,,INTEGER,
+w,,,INTEGER,
+l,,,INTEGER,
+rank,,,INTEGER,

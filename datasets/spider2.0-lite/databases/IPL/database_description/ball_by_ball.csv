@@ -1,0 +1,11 @@
+original_column_name,column_name,column_description,data_format,value_description
+match_id,,,INTEGER,
+over_id,,,INTEGER,
+ball_id,,,INTEGER,
+innings_no,,,INTEGER,
+team_batting,,,INTEGER,
+team_bowling,,,INTEGER,
+striker_batting_position,,,INTEGER,
+striker,,,INTEGER,
+non_striker,,,INTEGER,
+bowler,,,INTEGER,

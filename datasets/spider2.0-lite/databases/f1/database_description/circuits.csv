@@ -1,0 +1,10 @@
+original_column_name,column_name,column_description,data_format,value_description
+circuit_id,,,INT(11),
+circuit_ref,,,VARCHAR(255),
+name,,,VARCHAR(255),
+location,,,VARCHAR(255),
+country,,,VARCHAR(255),
+lat,,,FLOAT,
+lng,,,FLOAT,
+alt,,,INT(11),
+url,,,VARCHAR(255),

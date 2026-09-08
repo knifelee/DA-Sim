@@ -32,7 +32,7 @@ The benchmark suite currently includes three benchmark folders:
 - `science-benchmark/`
 - `spider2.0-lite/`
 
-At this stage, only the `bird-dev/` benchmark has been completed. The construction of `science-benchmark/` and `spider2.0-lite/` is planned as future work.
+All three follow the same folder structure documented below. `bird-dev/` covers its full official dev split (1,534 tasks). `science-benchmark/` and `spider2.0-lite/` are each scoped to a deliberately narrower, fully execution-verified subset of their source benchmark — see each folder's own `description.md` for the exact scope and the reasoning behind it. `human_knows.json` (span-level ambiguity annotations) currently exists only for `bird-dev/`; producing it for the other two benchmarks is planned as future work.
 
 ---
 

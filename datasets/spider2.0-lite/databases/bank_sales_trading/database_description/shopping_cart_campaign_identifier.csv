@@ -1,0 +1,6 @@
+original_column_name,column_name,column_description,data_format,value_description
+campaign_id,,,INTEGER,
+products,,,TEXT,
+campaign_name,,,TEXT,
+start_date,,,TEXT,
+end_date,,,TEXT,

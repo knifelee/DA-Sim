@@ -1,0 +1,7 @@
+original_column_name,column_name,column_description,data_format,value_description
+race_id,,,INT(11),
+driver_id,,,INT(11),
+lap,,,INT(11),
+position,,,INT(11),
+time,,,VARCHAR(255),
+milliseconds,,,INT(11),

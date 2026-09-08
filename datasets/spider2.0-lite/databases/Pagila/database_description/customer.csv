@@ -1,0 +1,10 @@
+original_column_name,column_name,column_description,data_format,value_description
+customer_id,,,INT,
+store_id,,,INT,
+first_name,,,VARCHAR(45),
+last_name,,,VARCHAR(45),
+email,,,VARCHAR(50),
+address_id,,,INT,
+active,,,CHAR(1),
+create_date,,,TIMESTAMP,
+last_update,,,TIMESTAMP,

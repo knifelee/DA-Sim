@@ -1,0 +1,9 @@
+original_column_name,column_name,column_description,data_format,value_description
+txn_id,,,INTEGER,
+member_id,,,TEXT,
+ticker,,,TEXT,
+txn_date,,,TEXT,
+txn_type,,,TEXT,
+quantity,,,REAL,
+percentage_fee,,,REAL,
+txn_time,,,TEXT,

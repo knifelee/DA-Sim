@@ -1,0 +1,6 @@
+original_column_name,column_name,column_description,data_format,value_description
+MemberID,,,INT,
+MbrFirstName,,,nvarchar (25),
+MbrLastName,,,nvarchar (25),
+MbrPhoneNumber,,,nvarchar (15),
+Gender,,,nvarchar (2),

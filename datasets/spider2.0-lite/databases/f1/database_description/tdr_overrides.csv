@@ -1,0 +1,5 @@
+original_column_name,column_name,column_description,data_format,value_description
+year,,,INT(11),
+constructor_ref,,,VARCHAR(255),
+driver_ref,,,VARCHAR(255),
+team_driver_rank,,,INT(11),

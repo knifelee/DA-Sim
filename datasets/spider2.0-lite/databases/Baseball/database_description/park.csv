@@ -1,0 +1,7 @@
+original_column_name,column_name,column_description,data_format,value_description
+park_id,,,TEXT,
+park_name,,,TEXT,
+park_alias,,,TEXT,
+city,,,TEXT,
+state,,,TEXT,
+country,,,TEXT,

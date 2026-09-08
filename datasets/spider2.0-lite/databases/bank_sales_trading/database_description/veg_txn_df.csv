@@ -1,0 +1,10 @@
+original_column_name,column_name,column_description,data_format,value_description
+index,,,INTEGER,
+txn_date,,,TEXT,
+txn_time,,,TEXT,
+item_code,,,INTEGER,
+qty_sold(kg),,,REAL,
+unit_selling_px_rmb/kg,,,REAL,
+sale/return,,,TEXT,
+discount(%),,,INTEGER,
+day_of_week,,,TEXT,

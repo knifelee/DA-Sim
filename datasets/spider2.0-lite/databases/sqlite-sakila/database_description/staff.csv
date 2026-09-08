@@ -1,0 +1,12 @@
+original_column_name,column_name,column_description,data_format,value_description
+staff_id,,,SMALLINT,
+first_name,,,VARCHAR(45),
+last_name,,,VARCHAR(45),
+address_id,,,INT,
+picture,,,BLOB,
+email,,,VARCHAR(50),
+store_id,,,INT,
+active,,,SMALLINT,
+username,,,VARCHAR(16),
+password,,,VARCHAR(40),
+last_update,,,TIMESTAMP,

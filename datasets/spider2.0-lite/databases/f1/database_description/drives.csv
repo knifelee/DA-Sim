@@ -1,0 +1,9 @@
+original_column_name,column_name,column_description,data_format,value_description
+year,,,INT,
+driver_id,,,INT,
+drive_id,,,,
+constructor_id,,,INT,
+first_round,,,INT,
+last_round,,,INT,
+is_first_drive_of_season,,,,
+is_final_drive_of_season,,,,

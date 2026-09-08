@@ -1,0 +1,6 @@
+original_column_name,column_name,column_description,data_format,value_description
+delivery_id,,,INTEGER,
+delivery_order_id,,,INTEGER,
+driver_id,,,INTEGER,
+delivery_distance_meters,,,"DECIMAL(10, 2)",
+delivery_status,,,VARCHAR(50),

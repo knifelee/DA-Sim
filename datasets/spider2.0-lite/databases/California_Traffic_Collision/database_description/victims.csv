@@ -1,0 +1,12 @@
+original_column_name,column_name,column_description,data_format,value_description
+id,,,INTEGER,
+case_id,,,REAL,
+party_number,,,INTEGER,
+victim_role,,,TEXT,
+victim_sex,,,TEXT,
+victim_age,,,REAL,
+victim_degree_of_injury,,,TEXT,
+victim_seating_position,,,TEXT,
+victim_safety_equipment_1,,,TEXT,
+victim_safety_equipment_2,,,TEXT,
+victim_ejected,,,TEXT,

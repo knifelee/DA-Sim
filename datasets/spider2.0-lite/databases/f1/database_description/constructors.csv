@@ -1,0 +1,6 @@
+original_column_name,column_name,column_description,data_format,value_description
+constructor_id,,,INT(11),
+constructor_ref,,,VARCHAR(255),
+name,,,VARCHAR(255),
+nationality,,,VARCHAR(255),
+url,,,VARCHAR(255),

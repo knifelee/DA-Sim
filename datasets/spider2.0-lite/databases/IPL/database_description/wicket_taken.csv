@@ -1,0 +1,7 @@
+original_column_name,column_name,column_description,data_format,value_description
+match_id,,,INTEGER,
+over_id,,,INTEGER,
+ball_id,,,INTEGER,
+player_out,,,INTEGER,
+kind_out,,,TEXT,
+innings_no,,,INTEGER,

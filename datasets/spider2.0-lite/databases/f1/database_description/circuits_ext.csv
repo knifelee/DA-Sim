@@ -1,0 +1,12 @@
+original_column_name,column_name,column_description,data_format,value_description
+circuit_id,,,INT,
+circuit_ref,,,TEXT,
+name,,,TEXT,
+location,,,TEXT,
+country,,,TEXT,
+lat,,,REAL,
+lng,,,REAL,
+alt,,,INT,
+url,,,TEXT,
+last_race_year,,,,
+number_of_races,,,,

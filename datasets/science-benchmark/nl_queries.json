@@ -1,0 +1,2394 @@
+[
+  {
+    "question_id": 0,
+    "db_id": "cordis",
+    "question": "Find the total cost of the project Theseus",
+    "evidence": "",
+    "SQL": "SELECT T1.total_cost FROM projects AS T1 WHERE T1.title = 'Theseus'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 1,
+    "db_id": "cordis",
+    "question": "Show total cost of project with title Theseus",
+    "evidence": "",
+    "SQL": "SELECT T1.total_cost FROM projects AS T1 WHERE T1.title = 'Theseus'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 2,
+    "db_id": "cordis",
+    "question": "Show me the acronyms of projects that started in 2018",
+    "evidence": "",
+    "SQL": "SELECT acronym FROM projects WHERE start_year = 2018",
+    "difficulty": ""
+  },
+  {
+    "question_id": 3,
+    "db_id": "cordis",
+    "question": "Get acronyms of projects beginning in 2018",
+    "evidence": "",
+    "SQL": "SELECT acronym FROM projects WHERE start_year = 2018",
+    "difficulty": ""
+  },
+  {
+    "question_id": 4,
+    "db_id": "cordis",
+    "question": "Show me the titles of projects that started before 2016",
+    "evidence": "",
+    "SQL": "SELECT title FROM projects WHERE start_year < 2016",
+    "difficulty": ""
+  },
+  {
+    "question_id": 5,
+    "db_id": "cordis",
+    "question": "Find titles of projects which started earlier than 2016",
+    "evidence": "",
+    "SQL": "SELECT title FROM projects WHERE start_year < 2016",
+    "difficulty": ""
+  },
+  {
+    "question_id": 6,
+    "db_id": "cordis",
+    "question": "Find institutions from the region of Nordjylland",
+    "evidence": "",
+    "SQL": "SELECT T1.institutions_name FROM institutions AS T1 JOIN eu_territorial_units AS T2 ON T1.geocode_regions_3 = T2.geocode_regions WHERE T2.description = 'Nordjylland'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 7,
+    "db_id": "cordis",
+    "question": "Show the name of institutions based in Nordjylland",
+    "evidence": "",
+    "SQL": "SELECT T1.institutions_name FROM institutions AS T1 JOIN eu_territorial_units AS T2 ON T1.geocode_regions_3 = T2.geocode_regions WHERE T2.description = 'Nordjylland'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 8,
+    "db_id": "cordis",
+    "question": "Find the name of principal investigators in projects that started in 2014",
+    "evidence": "",
+    "SQL": "SELECT T2.full_name FROM projects AS T1 join people as T2 on T1.principal_investigator = T2.unics_id WHERE T1.start_year = 2014",
+    "difficulty": ""
+  },
+  {
+    "question_id": 9,
+    "db_id": "cordis",
+    "question": "Show the full name of people being investigators in projects that began in 2014",
+    "evidence": "",
+    "SQL": "SELECT T2.full_name FROM projects AS T1 join people as T2 on T1.principal_investigator = T2.unics_id WHERE T1.start_year = 2014",
+    "difficulty": ""
+  },
+  {
+    "question_id": 10,
+    "db_id": "cordis",
+    "question": "Find projects whose subject area is \u201cMathematics and Statistics\u201d",
+    "evidence": "",
+    "SQL": "SELECT t1.title FROM projects AS T1 join project_subject_areas as psa on T1.unics_id = psa.project join subject_areas as sa on psa.subject_area = sa.code WHERE sa.title = 'Mathematics and Statistics'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 11,
+    "db_id": "cordis",
+    "question": "Show the acronym and subject area description of projects with subject area \u201cMathematics and Statistics\u201d",
+    "evidence": "",
+    "SQL": "SELECT t1.acronym, sa.description FROM projects AS T1 join project_subject_areas as psa on T1.unics_id = psa.project join subject_areas as sa on psa.subject_area = sa.code WHERE sa.title = 'Mathematics and Statistics'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 12,
+    "db_id": "cordis",
+    "question": "Find all different topics of projects that ended in 2014",
+    "evidence": "",
+    "SQL": "SELECT distinct t.title FROM projects AS T1 join project_topics as pt on T1.unics_id = pt.project join topics as t on pt.topic = t.code where t1.end_year = 2014",
+    "difficulty": ""
+  },
+  {
+    "question_id": 13,
+    "db_id": "cordis",
+    "question": "Find distinct titles of topics of projects that with end year 2014",
+    "evidence": "",
+    "SQL": "SELECT distinct t.title FROM projects AS T1 join project_topics as pt on T1.unics_id = pt.project join topics as t on pt.topic = t.code where t1.end_year = 2014",
+    "difficulty": ""
+  },
+  {
+    "question_id": 14,
+    "db_id": "cordis",
+    "question": "Show the acronym of projects with a member from Greece",
+    "evidence": "",
+    "SQL": "Select p.acronym from projects as p join project_members as pm on p.unics_id = pm.project join institutions as i on pm.institution_id = i.unics_id join countries as c on i.country_id = c.unics_id where c.country_name = 'Greece'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 15,
+    "db_id": "cordis",
+    "question": "Show names of institutions from France or Germany",
+    "evidence": "",
+    "SQL": "Select i.institutions_name from institutions as i join countries as c on i.country_id = c.unics_id where c.country_name = 'France' or c.country_name = 'Germany'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 16,
+    "db_id": "cordis",
+    "question": "Show names of institutions which are not from France",
+    "evidence": "",
+    "SQL": "Select i.institutions_name from institutions as i join countries as c on i.country_id = c.unics_id where c.country_name != 'France'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 17,
+    "db_id": "cordis",
+    "question": "Count the projects that started in 2016",
+    "evidence": "",
+    "SQL": "Select count(p.unics_id) from projects as p where start_year = 2016",
+    "difficulty": ""
+  },
+  {
+    "question_id": 18,
+    "db_id": "cordis",
+    "question": "Show the title of the project with the highest total cost",
+    "evidence": "",
+    "SQL": "Select p.title from projects as p where total_cost = (select max(p2.total_cost) from projects as p2)",
+    "difficulty": ""
+  },
+  {
+    "question_id": 19,
+    "db_id": "cordis",
+    "question": "Show the name of members in projects costing less than the average project cost.",
+    "evidence": "",
+    "SQL": "SELECT T1.member_name FROM project_members AS T1 JOIN projects AS T2 ON T1.project = T2.unics_id WHERE T2.total_cost < (SELECT AVG(T23.total_cost) FROM projects AS T23)",
+    "difficulty": ""
+  },
+  {
+    "question_id": 20,
+    "db_id": "cordis",
+    "question": "Find the id of projects with at least 100 members",
+    "evidence": "",
+    "SQL": "select p.unics_id from projects as p join project_members as pm on p.unics_id = pm.project group by p.unics_id having count(p.unics_id) >= 100",
+    "difficulty": ""
+  },
+  {
+    "question_id": 21,
+    "db_id": "cordis",
+    "question": "Find the code and title of the funding scheme which funded the highest number of projects.",
+    "evidence": "",
+    "SQL": "select s.code, s.title from funding_schemes as s where s.code = (select s2.code from funding_schemes as s2 join projects as p on s2.code = p.ec_fund_scheme group by s2.code order by count(*) desc LIMIT 1)",
+    "difficulty": ""
+  },
+  {
+    "question_id": 22,
+    "db_id": "cordis",
+    "question": "Show the total costs of all projects",
+    "evidence": "",
+    "SQL": "SELECT sum(total_cost) FROM projects",
+    "difficulty": ""
+  },
+  {
+    "question_id": 23,
+    "db_id": "cordis",
+    "question": "Show me the title of projects which have an end year and a start year after 2006",
+    "evidence": "",
+    "SQL": "select title from projects where start_year > 2006 and end_year > 2006",
+    "difficulty": ""
+  },
+  {
+    "question_id": 24,
+    "db_id": "cordis",
+    "question": "Find the projects which lasted the longest and have an end year and a start year",
+    "evidence": "",
+    "SQL": "select title, end_year - start_year from projects order by end_year - start_year desc limit 1",
+    "difficulty": ""
+  },
+  {
+    "question_id": 25,
+    "db_id": "cordis",
+    "question": "Show me topic titles which starts with 'Raw materials'",
+    "evidence": "",
+    "SQL": "select title from topics where title like 'Raw materials%'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 26,
+    "db_id": "cordis",
+    "question": "Show me topic titles which contain the word 'climate'",
+    "evidence": "",
+    "SQL": "select title from topics where title like '%climate%'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 27,
+    "db_id": "cordis",
+    "question": "Show me the number of projects where Thomas Bell was principal investigator",
+    "evidence": "",
+    "SQL": "select count(*) from projects as p join people as peep on p.principal_investigator = peep.unics_id where peep.full_name = 'Thomas Bell'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 28,
+    "db_id": "cordis",
+    "question": "Show me the all different names of people",
+    "evidence": "",
+    "SQL": "select distinct full_name from people",
+    "difficulty": ""
+  },
+  {
+    "question_id": 29,
+    "db_id": "cordis",
+    "question": "Find the acronym of projects which have total costs between 100000 and 200000",
+    "evidence": "",
+    "SQL": "select p.acronym from projects as p where p.total_cost between 100000 and 200000",
+    "difficulty": ""
+  },
+  {
+    "question_id": 30,
+    "db_id": "cordis",
+    "question": "Show the title of projects with costs higher than 1000000",
+    "evidence": "",
+    "SQL": "select p.title from projects as p where p.total_cost > 1000000",
+    "difficulty": ""
+  },
+  {
+    "question_id": 31,
+    "db_id": "cordis",
+    "question": "Show the title of projects with costs higher than a million",
+    "evidence": "",
+    "SQL": "select p.title from projects as p where p.total_cost > 1000000",
+    "difficulty": ""
+  },
+  {
+    "question_id": 32,
+    "db_id": "cordis",
+    "question": "Show the project title and member name where the member has a partner role ",
+    "evidence": "",
+    "SQL": "select title, member_name from projects as p join project_members as pm on p.unics_id = pm.project join project_member_roles as pmr on pm.member_role = pmr.code where pmr.code = 'partner'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 33,
+    "db_id": "cordis",
+    "question": "What different research domains do exist?",
+    "evidence": "",
+    "SQL": "select distinct description from erc_research_domains",
+    "difficulty": ""
+  },
+  {
+    "question_id": 34,
+    "db_id": "cordis",
+    "question": "Show me the country name of all institutes.",
+    "evidence": "",
+    "SQL": "select c.country_name from countries as c join institutions as i on c.unics_id = i.country_id",
+    "difficulty": ""
+  },
+  {
+    "question_id": 35,
+    "db_id": "cordis",
+    "question": "Show me the country of all institutes.",
+    "evidence": "",
+    "SQL": "select c.country_name from countries as c join institutions as i on c.unics_id = i.country_id",
+    "difficulty": ""
+  },
+  {
+    "question_id": 36,
+    "db_id": "cordis",
+    "question": "What is the country code 2 and country code 3 for Andorra?",
+    "evidence": "",
+    "SQL": "select country_code2, country_code3 from countries where country_name = 'Andorra'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 37,
+    "db_id": "cordis",
+    "question": "Find the code of the funding scheme for Framework Partnership Agreement",
+    "evidence": "",
+    "SQL": "select code from funding_schemes where title = 'Framework Partnership Agreement'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 38,
+    "db_id": "cordis",
+    "question": "Show me the full title of the program which is called 'Transport' in short.",
+    "evidence": "",
+    "SQL": "select title from programmes where short_name = 'Transport'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 39,
+    "db_id": "cordis",
+    "question": "Find member name and role code of project members in project with acronym GTBB",
+    "evidence": "",
+    "SQL": "select pm.member_name, pr.code from project_members as pm join projects as p on pm.project = p.unics_id join project_member_roles as pr on pm.member_role = pr.code where p.acronym = 'GTBB'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 40,
+    "db_id": "cordis",
+    "question": "Find member name and role code of project members in project GTBB",
+    "evidence": "",
+    "SQL": "select pm.member_name, pr.code from project_members as pm join projects as p on pm.project = p.unics_id join project_member_roles as pr on pm.member_role = pr.code where p.acronym = 'GTBB'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 41,
+    "db_id": "cordis",
+    "question": "Show titles of programmes which have FP7 as parent program",
+    "evidence": "",
+    "SQL": "select title from programmes where parent = 'FP7'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 42,
+    "db_id": "cordis",
+    "question": "Show titles of programmes which have program with code FP7 as parent program",
+    "evidence": "",
+    "SQL": "select title from programmes where parent = 'FP7'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 43,
+    "db_id": "cordis",
+    "question": "Get panel descriptions from research domain Life Sciences",
+    "evidence": "",
+    "SQL": "select p.description from erc_panels as p join erc_research_domains as erd on p.part_of = erd.code where erd.description = 'Life Sciences'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 44,
+    "db_id": "cordis",
+    "question": "Get panel descriptions from research domain life sciences",
+    "evidence": "",
+    "SQL": "select p.description from erc_panels as p join erc_research_domains as erd on p.part_of = erd.code where erd.description = 'Life Sciences'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 45,
+    "db_id": "cordis",
+    "question": "Find project members of type Research Organisations",
+    "evidence": "",
+    "SQL": "select member_name from project_members as mb join activity_types as a on a.code = mb.activity_type where a.description = 'Research Organisations'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 46,
+    "db_id": "cordis",
+    "question": "Get names of project members who's activity type description is Research Organisations",
+    "evidence": "",
+    "SQL": "select member_name from project_members as mb join activity_types as a on a.code = mb.activity_type where a.description = 'Research Organisations'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 47,
+    "db_id": "cordis",
+    "question": "What is the objective of DEEPCARBON?",
+    "evidence": "",
+    "SQL": "select objective from projects where acronym = 'DEEPCARBON'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 48,
+    "db_id": "cordis",
+    "question": "What is the objective of the project with acronym DEEPCARBON?",
+    "evidence": "",
+    "SQL": "select objective from projects where acronym = 'DEEPCARBON'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 49,
+    "db_id": "cordis",
+    "question": "Get the title of projects having the term 'carbon capturing' in it's objective.",
+    "evidence": "",
+    "SQL": "select title from projects where objective like '%carbon capturing%'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 50,
+    "db_id": "cordis",
+    "question": "How many projects have an objective which contains 'carbon capturing'?",
+    "evidence": "",
+    "SQL": "select count(*) from projects where objective like '%carbon capturing%'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 51,
+    "db_id": "cordis",
+    "question": "Show all names of institutions from France except institutions from the territorial region of Paris",
+    "evidence": "",
+    "SQL": "select i.institutions_name from institutions as i join countries as c on c.unics_id = i.country_id where country_name = 'France' except select i.institutions_name from institutions as i join countries as c on c.unics_id = i.country_id join eu_territorial_units as etu on i.geocode_regions_3 = etu.geocode_regions where country_name = 'France' and etu.description = 'Paris'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 52,
+    "db_id": "cordis",
+    "question": "Show institutions from France except the ones from Paris",
+    "evidence": "",
+    "SQL": "select i.institutions_name from institutions as i join countries as c on c.unics_id = i.country_id where country_name = 'France' except select i.institutions_name from institutions as i join countries as c on c.unics_id = i.country_id join eu_territorial_units as etu on i.geocode_regions_3 = etu.geocode_regions where country_name = 'France' and etu.description = 'Paris'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 53,
+    "db_id": "cordis",
+    "question": "Which institutions have never been project coordinators",
+    "evidence": "",
+    "SQL": "SELECT distinct member_name from project_members WHERE member_name NOT in (SELECT member_name from project_members where member_role = 'coordinator')",
+    "difficulty": ""
+  },
+  {
+    "question_id": 54,
+    "db_id": "cordis",
+    "question": "Show all of the instituions that have never coordinated a project",
+    "evidence": "",
+    "SQL": "SELECT distinct member_name from project_members WHERE member_name NOT in (SELECT member_name from project_members where member_role = 'coordinator')",
+    "difficulty": ""
+  },
+  {
+    "question_id": 55,
+    "db_id": "cordis",
+    "question": "Show all of the names of people who have worked on multiple projects",
+    "evidence": "",
+    "SQL": "SELECT t1.full_name, count(p.title) FROM people as t1 join projects as p on t1.unics_id = p.principal_investigator group by t1.full_name HAVING count(p.title) > 1",
+    "difficulty": ""
+  },
+  {
+    "question_id": 56,
+    "db_id": "cordis",
+    "question": "Which people have worked on more than one project",
+    "evidence": "",
+    "SQL": "SELECT t1.full_name, count(p.title) FROM people as t1 join projects as p on t1.unics_id = p.principal_investigator group by t1.full_name HAVING count(p.title) > 1",
+    "difficulty": ""
+  },
+  {
+    "question_id": 57,
+    "db_id": "cordis",
+    "question": "What is the title of the subject area that has been granted the most funding",
+    "evidence": "",
+    "SQL": "SELECT t1.title, MAX(t3.ec_max_contribution) from subject_areas as t1 join project_subject_areas as t2 on t1.code = t2.subject_area join projects as t3 on t2.project = t3.unics_id group by t1.title order by MAX(t3.ec_max_contribution) DESC LIMIT 1",
+    "difficulty": ""
+  },
+  {
+    "question_id": 58,
+    "db_id": "cordis",
+    "question": "Which subject area has recieved the highest funding contribution?",
+    "evidence": "",
+    "SQL": "SELECT t1.title, MAX(t3.ec_max_contribution) from subject_areas as t1 join project_subject_areas as t2 on t1.code = t2.subject_area join projects as t3 on t2.project = t3.unics_id group by t1.title order by MAX(t3.ec_max_contribution) DESC LIMIT 1",
+    "difficulty": ""
+  },
+  {
+    "question_id": 59,
+    "db_id": "cordis",
+    "question": "Which subject area has recieved the least funding contribution",
+    "evidence": "",
+    "SQL": "SELECT t1.title, MIN(t3.ec_max_contribution) from subject_areas as t1 join project_subject_areas as t2 on t1.code = t2.subject_area join projects as t3 on t2.project = t3.unics_id group by t1.title order by MIN(t3.ec_max_contribution) DESC LIMIT 1",
+    "difficulty": ""
+  },
+  {
+    "question_id": 60,
+    "db_id": "cordis",
+    "question": "What is the title of the subject area that has been granted the least amount of funding",
+    "evidence": "",
+    "SQL": "SELECT t1.title, MIN(t3.ec_max_contribution) from subject_areas as t1 join project_subject_areas as t2 on t1.code = t2.subject_area join projects as t3 on t2.project = t3.unics_id group by t1.title order by MIN(t3.ec_max_contribution) DESC LIMIT 1",
+    "difficulty": ""
+  },
+  {
+    "question_id": 61,
+    "db_id": "cordis",
+    "question": "Which institution has participated in the most projects",
+    "evidence": "",
+    "SQL": "Select i.institutions_name, Count(distinct project) From project_members join institutions as i on project_members.institution_id = i.unics_id GROUP BY i.institutions_name order by count(distinct project) desc limit 1",
+    "difficulty": ""
+  },
+  {
+    "question_id": 62,
+    "db_id": "cordis",
+    "question": "Show the institution that has been involved in the highest number of projects",
+    "evidence": "",
+    "SQL": "Select i.institutions_name, Count(distinct project) From project_members join institutions as i on project_members.institution_id = i.unics_id GROUP BY i.institutions_name order by count(distinct project) desc limit 1",
+    "difficulty": ""
+  },
+  {
+    "question_id": 63,
+    "db_id": "cordis",
+    "question": "Which institution has participated in the fewest projects",
+    "evidence": "",
+    "SQL": "Select t2.institutions_name, Count(distinct project) From project_members as t1 join institutions as t2 on t1.institution_id = t2.unics_id GROUP BY t2.institutions_name order by count(distinct project) asc limit 1",
+    "difficulty": ""
+  },
+  {
+    "question_id": 64,
+    "db_id": "cordis",
+    "question": "Show the institution that has been involved in the least amount of projects",
+    "evidence": "",
+    "SQL": "Select t2.institutions_name, Count(distinct project) From project_members as t1 join institutions as t2 on t1.institution_id = t2.unics_id GROUP BY t2.institutions_name order by count(distinct project) asc limit 1",
+    "difficulty": ""
+  },
+  {
+    "question_id": 65,
+    "db_id": "cordis",
+    "question": "Which funding scheme provided the most funding",
+    "evidence": "",
+    "SQL": "SELECT t1.title, sum(ec_max_contribution) from funding_schemes as t1 join projects as t2 on t1.code = t2.ec_fund_scheme group by t1.title ORDER BY sum(ec_max_contribution) DESC LIMIT 1",
+    "difficulty": ""
+  },
+  {
+    "question_id": 66,
+    "db_id": "cordis",
+    "question": "Which funding scheme provided the least funding",
+    "evidence": "",
+    "SQL": "SELECT t1.title, sum(ec_max_contribution) from funding_schemes as t1 join projects as t2 on t1.code = t2.ec_fund_scheme group by t1.title ORDER BY sum(ec_max_contribution) ASC LIMIT 1",
+    "difficulty": ""
+  },
+  {
+    "question_id": 67,
+    "db_id": "cordis",
+    "question": "Show the industrial partners that have worked on projects and the amount of funding they have recieved in order from most to least",
+    "evidence": "",
+    "SQL": "SELECT t1.member_name, p.ec_max_contribution FROM project_members as t1 join activity_types as t2 on t1.activity_type = t2.code join projects as p on t1.project = p.unics_id WHERE t2.code = 'PRC' ORDER BY ec_max_contribution DESC",
+    "difficulty": ""
+  },
+  {
+    "question_id": 68,
+    "db_id": "cordis",
+    "question": "Show the amount of funding and corresponding list of industrial partners that have worked on projects in order from the most funding to the least funding",
+    "evidence": "",
+    "SQL": "SELECT t1.member_name, p.ec_max_contribution FROM project_members as t1 join activity_types as t2 on t1.activity_type = t2.code join projects as p on t1.project = p.unics_id WHERE t2.code = 'PRC' ORDER BY ec_max_contribution DESC",
+    "difficulty": ""
+  },
+  {
+    "question_id": 69,
+    "db_id": "cordis",
+    "question": "Show the title and the start year of the most recent projects",
+    "evidence": "",
+    "SQL": "SELECT p.title, p.start_year from projects as p order by start_year DESC",
+    "difficulty": ""
+  },
+  {
+    "question_id": 70,
+    "db_id": "cordis",
+    "question": "Which projects have started most recently?",
+    "evidence": "",
+    "SQL": "SELECT p.title, p.start_year from projects as p order by start_year DESC",
+    "difficulty": ""
+  },
+  {
+    "question_id": 71,
+    "db_id": "cordis",
+    "question": "Show title and the starting year of the least recent projects",
+    "evidence": "",
+    "SQL": "SELECT p.title, p.start_year from projects as p order by start_year ASC",
+    "difficulty": ""
+  },
+  {
+    "question_id": 72,
+    "db_id": "cordis",
+    "question": "Which projects have started the least recently?",
+    "evidence": "",
+    "SQL": "SELECT p.title, p.start_year from projects as p order by start_year ASC",
+    "difficulty": ""
+  },
+  {
+    "question_id": 73,
+    "db_id": "cordis",
+    "question": "What is the starting date of the first recorded project",
+    "evidence": "",
+    "SQL": "SELECT p.start_date from projects as p order by start_date ASC",
+    "difficulty": ""
+  },
+  {
+    "question_id": 74,
+    "db_id": "cordis",
+    "question": "On which date did the first project start?",
+    "evidence": "",
+    "SQL": "SELECT p.start_date from projects as p order by start_date ASC",
+    "difficulty": ""
+  },
+  {
+    "question_id": 75,
+    "db_id": "cordis",
+    "question": "Show the titles of all of the projects in the subject area of Climate change and Carbon cycle research",
+    "evidence": "",
+    "SQL": "SELECT t3.title from subject_areas as t1 join project_subject_areas as t2 on t1.code = t2.subject_area join projects as t3 on t2.project = t3.unics_id WHERE t1.title = 'Climate change and Carbon cycle research'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 76,
+    "db_id": "cordis",
+    "question": "Show the titles of all of the projects that share the subject area code 'CCC",
+    "evidence": "",
+    "SQL": "SELECT t3.title from subject_areas as t1 join project_subject_areas as t2 on t1.code = t2.subject_area join projects as t3 on t2.project = t3.unics_id WHERE t1.title = 'Climate change and Carbon cycle research'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 77,
+    "db_id": "cordis",
+    "question": "List all of the possible roles that project members can have in projects",
+    "evidence": "",
+    "SQL": "SELECT pmr.description from project_member_roles as pmr",
+    "difficulty": ""
+  },
+  {
+    "question_id": 78,
+    "db_id": "cordis",
+    "question": "What are all of the ways that projects members can participate in projects?",
+    "evidence": "",
+    "SQL": "SELECT pmr.description from project_member_roles as pmr",
+    "difficulty": ""
+  },
+  {
+    "question_id": 79,
+    "db_id": "cordis",
+    "question": "How many erc panels are dedicated to Life Sciences",
+    "evidence": "",
+    "SQL": "SELECT count(t1.description) from erc_panels as t1 join erc_research_domains as t2 on t2.code = t1.part_of WHERE t2.description = 'Life Sciences'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 80,
+    "db_id": "cordis",
+    "question": "Count the number of erc panels that are part of Life Sciences",
+    "evidence": "",
+    "SQL": "SELECT count(t1.description) from erc_panels as t1 join erc_research_domains as t2 on t2.code = t1.part_of WHERE t2.code = 'LS'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 81,
+    "db_id": "cordis",
+    "question": "List all of the european research council panels related to social sciences and humanities",
+    "evidence": "",
+    "SQL": "SELECT t1.description from erc_panels as t1 join erc_research_domains as t2 on t2.code = t1.part_of WHERE t2.code = 'SH'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 82,
+    "db_id": "cordis",
+    "question": "How many european research council panels are related to social sciences and humanities",
+    "evidence": "",
+    "SQL": "SELECT count(t1.description) from erc_panels as t1 join erc_research_domains as t2 on t2.code = t1.part_of WHERE t2.code = 'SH'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 83,
+    "db_id": "cordis",
+    "question": "Show all of the project members that are private for profit entities",
+    "evidence": "",
+    "SQL": "SELECT member_name FROM project_members as t1 join activity_types as t2 on t1.activity_type = t2.code WHERE t2.code = 'PRC'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 84,
+    "db_id": "cordis",
+    "question": "Which project members are businesses?",
+    "evidence": "",
+    "SQL": "SELECT member_name FROM project_members as t1 join activity_types as t2 on t1.activity_type = t2.code WHERE t2.code = 'PRC'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 85,
+    "db_id": "cordis",
+    "question": "How many project members are businesses?",
+    "evidence": "",
+    "SQL": "SELECT count(member_name) FROM project_members as t1 join activity_types as t2 on t1.activity_type = t2.code WHERE t2.code = 'PRC'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 86,
+    "db_id": "cordis",
+    "question": "How many project members are Higher or Secondary Education Establishments?",
+    "evidence": "",
+    "SQL": "SELECT count (distinct member_name) FROM project_members as t1 join activity_types as t2 on t1.activity_type = t2.code WHERE t2.code = 'HES'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 87,
+    "db_id": "cordis",
+    "question": "Count the number of project members that are Educational Establishments",
+    "evidence": "",
+    "SQL": "SELECT count (distinct member_name) FROM project_members as t1 join activity_types as t2 on t1.activity_type = t2.code WHERE t2.description = 'Higher or Secondary Education Establishments'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 88,
+    "db_id": "cordis",
+    "question": "How many projects have been related to Robotics?",
+    "evidence": "",
+    "SQL": "SELECT count(t3.title) from subject_areas as t1 join project_subject_areas as t2 on t1.code = t2.subject_area join projects as t3 on t2.project = t3.unics_id WHERE t1.title = 'Robotics'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 89,
+    "db_id": "cordis",
+    "question": "What is the number of projects that have been carried out in the subject area of Robotics?",
+    "evidence": "",
+    "SQL": "SELECT count(t3.title) from subject_areas as t1 join project_subject_areas as t2 on t1.code = t2.subject_area join projects as t3 on t2.project = t3.unics_id WHERE t1.title = 'Robotics'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 90,
+    "db_id": "cordis",
+    "question": "Which non-EU entity has recieved the most funding through a project?",
+    "evidence": "",
+    "SQL": "SELECT t1.member_name, p.ec_max_contribution FROM project_members as t1 join activity_types as t2 on t1.activity_type = t2.code join projects as p on t1.project = p.unics_id WHERE t1.geocode_regions_3 = 'NONEU' ORDER BY ec_max_contribution DESC LIMIT 1",
+    "difficulty": ""
+  },
+  {
+    "question_id": 91,
+    "db_id": "cordis",
+    "question": "Which entity located outside of the EU has received the most funding?",
+    "evidence": "",
+    "SQL": "SELECT t1.member_name, p.ec_max_contribution FROM project_members as t1 join activity_types as t2 on t1.activity_type = t2.code join projects as p on t1.project = p.unics_id WHERE t1.geocode_regions_3 = 'NONEU' ORDER BY ec_max_contribution DESC LIMIT 1",
+    "difficulty": ""
+  },
+  {
+    "question_id": 92,
+    "db_id": "cordis",
+    "question": "Which non-EU entity has recieved the least funding through a project?",
+    "evidence": "",
+    "SQL": "SELECT t1.member_name, p.ec_max_contribution FROM project_members as t1 join activity_types as t2 on t1.activity_type = t2.code join projects as p on t1.project = p.unics_id WHERE t1.geocode_regions_3 = 'NONEU' ORDER BY ec_max_contribution ASC LIMIT 1",
+    "difficulty": ""
+  },
+  {
+    "question_id": 93,
+    "db_id": "cordis",
+    "question": "Which entity located outside of the EU has received the least funding?",
+    "evidence": "",
+    "SQL": "SELECT t1.member_name, p.ec_max_contribution FROM project_members as t1 join activity_types as t2 on t1.activity_type = t2.code join projects as p on t1.project = p.unics_id WHERE t1.geocode_regions_3 = 'NONEU' ORDER BY ec_max_contribution ASC LIMIT 1",
+    "difficulty": ""
+  },
+  {
+    "question_id": 94,
+    "db_id": "cordis",
+    "question": "How many non-EU entities have participated in projects?",
+    "evidence": "",
+    "SQL": "SELECT count(distinct t1.member_name) FROM project_members as t1 join activity_types as t2 on t1.activity_type = t2.code join projects as p on t1.project = p.unics_id WHERE t1.geocode_regions_3 = 'NONEU'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 95,
+    "db_id": "cordis",
+    "question": "Which entities that are located outside of the European Union have participated in projects?",
+    "evidence": "",
+    "SQL": "SELECT distinct t1.member_name FROM project_members as t1 join activity_types as t2 on t1.activity_type = t2.code join projects as p on t1.project = p.unics_id WHERE t1.geocode_regions_3 = 'NONEU'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 96,
+    "db_id": "cordis",
+    "question": "Show all of the programmes with titles that are related to climate",
+    "evidence": "",
+    "SQL": "SELECT p.title from programmes as p WHERE p.title like '%climate%'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 97,
+    "db_id": "cordis",
+    "question": "List the programms that have the term climate in the title",
+    "evidence": "",
+    "SQL": "SELECT p.title from programmes as p WHERE p.title like '%climate%'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 98,
+    "db_id": "cordis",
+    "question": "Show the title and amount of funds that have been allocated per programme",
+    "evidence": "",
+    "SQL": "SELECT t1.title, sum(t3.ec_max_contribution) from programmes as t1 join project_programmes as t2 on t1.code = t2.programme join projects as t3 on t3.unics_id = t2.project group by t1.title",
+    "difficulty": ""
+  },
+  {
+    "question_id": 99,
+    "db_id": "cordis",
+    "question": "List all of the titles and the amount of funding that has been dispersed per programme",
+    "evidence": "",
+    "SQL": "SELECT t1.title, sum(t3.ec_max_contribution) from programmes as t1 join project_programmes as t2 on t1.code = t2.programme join projects as t3 on t3.unics_id = t2.project group by t1.title",
+    "difficulty": ""
+  },
+  {
+    "question_id": 100,
+    "db_id": "sdss",
+    "question": "What is photometrically observed star",
+    "evidence": "",
+    "SQL": "select p.objid from photoobj as p JOIN photo_type as pt on p.type = pt.value where pt.name = 'STAR'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 101,
+    "db_id": "sdss",
+    "question": "Show me all photometrically observable star",
+    "evidence": "",
+    "SQL": "select p.objid from photoobj as p JOIN photo_type as pt on p.type = pt.value where pt.name = 'STAR'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 102,
+    "db_id": "sdss",
+    "question": "Find all photometrically observable star that have spectral observations. Retrieve the object id, right ascension, and declination. ",
+    "evidence": "",
+    "SQL": "select p.objid, p.ra, p.dec from photoobj as p join specobj as s on s.bestobjid = p.objid join photo_type as pt on p.type = pt.value where pt.name = 'STAR'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 103,
+    "db_id": "sdss",
+    "question": "Show me the object id, right ascension, and declination of photometrically observed star that have spectral observations.",
+    "evidence": "",
+    "SQL": "select p.objid, p.ra, p.dec from photoobj as p join specobj as s on s.bestobjid = p.objid join photo_type as pt on p.type = pt.value where pt.name = 'STAR'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 104,
+    "db_id": "sdss",
+    "question": "What is photometrically observed Galaxy",
+    "evidence": "",
+    "SQL": "select p.objid from photoobj as p JOIN photo_type as pt on p.type = pt.value where pt.name = 'GALAXY'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 105,
+    "db_id": "sdss",
+    "question": "Find Galaxy that are photometrically observable",
+    "evidence": "",
+    "SQL": "select p.objid from photoobj as p JOIN photo_type as pt on p.type = pt.value where pt.name = 'GALAXY'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 106,
+    "db_id": "sdss",
+    "question": "Find all photometrically observable Galaxy that have spectral observations. Retrieve the object id, right ascension, and declination. ",
+    "evidence": "",
+    "SQL": "select p.objid, p.ra, p.dec from photoobj as p join specobj as s on s.bestobjid = p.objid join photo_type as pt on p.type = pt.value where pt.name = 'GALAXY'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 107,
+    "db_id": "sdss",
+    "question": "Show me the object id, right ascension and declination of photometrically observable Galaxy that have spectral observations.",
+    "evidence": "",
+    "SQL": "select p.objid, p.ra, p.dec from photoobj as p join specobj as s on s.bestobjid = p.objid join photo_type as pt on p.type = pt.value where pt.name = 'GALAXY'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 108,
+    "db_id": "sdss",
+    "question": "Find the object ids, right ascensions and declinations of photometrically observable galaxy whose right ascension is greater than 185, right ascension is less than 186, declination is greater than 15, declination is less than 16.",
+    "evidence": "",
+    "SQL": "select p.objid, p.ra, p.dec from photoobj as p JOIN photo_type as pt on p.type = pt.value where p.ra > 185 and p.ra < 186 and p.dec > 15 and p.dec < 16 and pt.name = 'GALAXY'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 109,
+    "db_id": "sdss",
+    "question": "Show me object id, right ascensions and declinations of photometrically observed galaxy in a certain area, of which the right ascension is between 185 and 186, declination is bertween 15 and 16.",
+    "evidence": "",
+    "SQL": "select p.objid, p.ra, p.dec from photoobj as p JOIN photo_type as pt on p.type = pt.value where p.ra > 185 and p.ra < 186 and p.dec > 15 and p.dec < 16 and pt.name = 'GALAXY'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 110,
+    "db_id": "sdss",
+    "question": "Find the object ids, right ascensions and declinations of photometrically observable star whose right ascension is greater than 185, right ascension is less than 186, declination is greater than 15, declination is less than 16.",
+    "evidence": "",
+    "SQL": "select p.objid, p.ra, p.dec from photoobj as p JOIN photo_type as pt on p.type = pt.value where p.ra > 185 and p.ra < 186 and p.dec > 15 and p.dec < 16 and pt.name = 'STAR'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 111,
+    "db_id": "sdss",
+    "question": "Show me object id, right ascensions and declinations of photometrically observed star in a certain area, of which the right ascension is between 185 and 186, declination is bertween 15 and 16.",
+    "evidence": "",
+    "SQL": "select p.objid, p.ra, p.dec from photoobj as p JOIN photo_type as pt on p.type = pt.value where p.ra > 185 and p.ra < 186 and p.dec > 15 and p.dec < 16 and pt.name = 'STAR'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 112,
+    "db_id": "sdss",
+    "question": "Find all spectroscopic observed star,  whose right ascension is greater than 185 and less than 186, declination is greater than 15 and less than 16. Retrieve their object id, right ascension, declination, and photometric object type",
+    "evidence": "",
+    "SQL": "select p.objid, p.ra, p.dec, s.z from Photoobj as p join specobj as s on s.bestobjid = p.objid where s.ra > 185 and s.ra < 186 AND s.dec > 15 and s.dec < 16 and s.class = 'STAR'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 113,
+    "db_id": "sdss",
+    "question": "Fetch me the object id, right ascension, declination, and redshift of spectroscopic observed star in a certain area, of which the right ascension is in an unbouded interval of 185 and 186, declination is in an unbouded interval of 15 and 16.",
+    "evidence": "",
+    "SQL": "select p.objid, p.ra, p.dec, s.z from Photoobj as p join specobj as s on s.bestobjid = p.objid where s.ra > 185 and s.ra < 186 AND s.dec > 15 and s.dec < 16 and s.class = 'STAR'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 114,
+    "db_id": "sdss",
+    "question": "Find properties of all spectroscopic observed galaxy,  whose right ascension is greater than 185 and less than 186, declination is greater than 15 and less than 16.",
+    "evidence": "",
+    "SQL": "select p.objID, p.ra, p.dec, s.z from Photoobj as p join specobj as s on s.bestobjid = p.objid where s.ra > 185 and s.ra < 186 AND s.dec > 15 and s.dec < 16 and s.class = 'GALAXY'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 115,
+    "db_id": "sdss",
+    "question": "Show me the object id, right ascension, declination, and redshift of spectroscopic observed galaxy in a certain area, of which the right ascension is in an unbouded interval of 185 and 186, declination is in an unbouded interval of 15 and 16.",
+    "evidence": "",
+    "SQL": "select p.objID, p.ra, p.dec, s.z from Photoobj as p join specobj as s on s.bestobjid = p.objid where s.ra > 185 and s.ra < 186 AND s.dec > 15 and s.dec < 16 and s.class = 'GALAXY'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 116,
+    "db_id": "sdss",
+    "question": "Find all photometrically observable star with a difference of magnitude u and magnitude g is less than 0.4,  the difference between magnitude g and magnitude r is less than 0.7, the difference between magnitude r and magnitude i is greater than 0.4 and the difference between magnitude i and magnitude z is greater than 0.4",
+    "evidence": "",
+    "SQL": "select p.objid from photoobj as p JOIN photo_type as pt on p.type = pt.value where pt.name = 'STAR' and p.u - p.g < 0.4 and p.g - p.r < 0.7 and p.r - p.i > 0.4 and p.i - p.z > 0.4",
+    "difficulty": ""
+  },
+  {
+    "question_id": 117,
+    "db_id": "sdss",
+    "question": "Show me the photometrically observed star with the following constraints in its color bands, u - g < 0.4, g - r < 0.7, r - i > 0.4 and i - z > 0.4",
+    "evidence": "",
+    "SQL": "select p.objid from photoobj as p JOIN photo_type as pt on p.type = pt.value where pt.name = 'STAR' and p.u - p.g < 0.4 and p.g - p.r < 0.7 and p.r - p.i > 0.4 and p.i - p.z > 0.4",
+    "difficulty": ""
+  },
+  {
+    "question_id": 118,
+    "db_id": "sdss",
+    "question": "Find all star in photometrically observable binary star system, of which the neighbor's distance less than 0.05,  the difference of magnitude u and magnitude g is lower than 0.4, the difference of magnitude g and magnitude r is lower than 0.7, the difference of magnitude r and magnitude i is higher than 0.4 and the difference of magnitude i and magnitude z is higher than 0.4",
+    "evidence": "",
+    "SQL": "select p.objid from photoobj as p join photo_type as pt on p.type = pt.value where pt.name = 'STAR' and (p.u - p.g) < 0.4 and (p.g - p.r) < 0.7 and (p.r - p.i) > 0.4 and (p.i - p.z) > 0.4 and p.objid in (select n.objid from neighbors as n join photo_type as pt on n.neighbortype = pt.value where n.distance < 0.05 and pt.name = 'STAR');",
+    "difficulty": ""
+  },
+  {
+    "question_id": 119,
+    "db_id": "sdss",
+    "question": "What is the star in photometrically observed binary star system, of which the neighbor's distance is less than 0.05 and has the following constraints in its color bands, u - g < 0.4, g - r < 0.7, r - i > 0.4 and i - z > 0.4 ",
+    "evidence": "",
+    "SQL": "select p.objid from photoobj as p join photo_type as pt on p.type = pt.value where pt.name = 'STAR' and (p.u - p.g) < 0.4 and (p.g - p.r) < 0.7 and (p.r - p.i) > 0.4 and (p.i - p.z) > 0.4 and p.objid in (select n.objid from neighbors as n join photo_type as pt on n.neighbortype = pt.value where n.distance < 0.05 and pt.name = 'STAR');",
+    "difficulty": ""
+  },
+  {
+    "question_id": 120,
+    "db_id": "sdss",
+    "question": "Find the number of photometrically observed GALAXY whose magnitude r is less than 17, extinction r is greater than 0.2.",
+    "evidence": "",
+    "SQL": "select count(*) from photoobj as p join photo_type as pt on p.type = pt.value where p.r < 17 and p.extinction_r > 0.2 and pt.name = 'GALAXY'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 121,
+    "db_id": "sdss",
+    "question": "How many photometrically observable GALAXY of which magnitude r is lower than 17 and extinction r is higher than 0.2.",
+    "evidence": "",
+    "SQL": "select count(*) from photoobj as p join photo_type as pt on p.type = pt.value where p.r < 17 and p.extinction_r > 0.2 and pt.name = 'GALAXY'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 122,
+    "db_id": "sdss",
+    "question": "Find all photometric observable GALAXY whose magnitude g is brighter than 22, the difference of magnitude u and magnitude g is between -0.27 and 0.71, the difference of magnitude g and magnitude r is between -0.24 and 0.35, the difference of magnitude r and magnitude i is between -0.27 and 0.57 and the difference of magnitude i and magnitude z is between -0.35 and 0.7. Retrieve the object id and magnitude g with descent order by magnitude g. ",
+    "evidence": "",
+    "SQL": "select p.objid, p.g from photoobj as p join photo_type as pt on p.type = pt.value where pt.name = 'GALAXY' and p.g <= 22 and p.u - p.g >= -0.27 and p.u - p.g < 0.71 and p.g - p.r >= -0.24 and p.g - p.r < 0.35 and p.r - p.i >= -0.27 and p.r - p.i < 0.57 and p.i - p.z >= -0.35 and p.i - p.z < 0.7 order by p.g desc",
+    "difficulty": ""
+  },
+  {
+    "question_id": 123,
+    "db_id": "sdss",
+    "question": "Show me the photometric observed Galaxy of which the color band magnitude g is brighter than 22, and the other constraints as following, u - g >= -0.27 but < 0.71, g - r >= -0.24 but < 0.35, r - i >= -0.27 but < 0.57, and i - z >= -0.35 but < 0.7. Rerank the result with descent order by color band magnitude g ",
+    "evidence": "",
+    "SQL": "select p.objid, p.g from photoobj as p join photo_type as pt on p.type = pt.value where pt.name = 'GALAXY' and p.g <= 22 and p.u - p.g >= -0.27 and p.u - p.g < 0.71 and p.g - p.r >= -0.24 and p.g - p.r < 0.35 and p.r - p.i >= -0.27 and p.r - p.i < 0.57 and p.i - p.z >= -0.35 and p.i - p.z < 0.7 order by p.g desc",
+    "difficulty": ""
+  },
+  {
+    "question_id": 124,
+    "db_id": "sdss",
+    "question": "Find object id, right ascension, declination of photometrically observed star whose magnitude i is brighter than 19 and fainter than 0, the difference of magnitude g and magnitude r is higher than 2.26, the difference of magnitude i and magnitude z is lower than 0.25, and either the difference of magnitude u and magnitude g is greater than 2.0 or magnitude u is fainter than 22.3",
+    "evidence": "",
+    "SQL": "SELECT p.objid, p.ra, p.dec from photoobj AS p JOIN photo_type AS pt ON p.type = pt.value where pt.name = 'STAR' and i < 19 and i > 0 and g - r > 2.26 and i - z < 0.25 and u - g > 2.0 or u > 22.3",
+    "difficulty": ""
+  },
+  {
+    "question_id": 125,
+    "db_id": "sdss",
+    "question": "Show me the photometrically observable star with the color band magnitude i brighter than 19 but fainter than 0, the difference of magnitude g and r is greater than 2.26, the difference of magnitude i and z is less than 0.25, and either the difference of magnitude u and g is greater than 2.0 or the color band magnitude u is fainter than 22.3",
+    "evidence": "",
+    "SQL": "SELECT p.objid, p.ra, p.dec from photoobj AS p JOIN photo_type AS pt ON p.type = pt.value where pt.name = 'STAR' and i < 19 and i > 0 and g - r > 2.26 and i - z < 0.25 and u - g > 2.0 or u > 22.3",
+    "difficulty": ""
+  },
+  {
+    "question_id": 126,
+    "db_id": "sdss",
+    "question": "What are the photometrically observable Galaxy whose right ascension is between 140.9 and 141.1, magnitude g is brighter than 18.0 and the difference of magitude u and magnitude g is greater than 2.2. Retrieve the objecti id, right ascension and declination of these objects.",
+    "evidence": "",
+    "SQL": "select objid, ra, dec from photoobj as p join photo_type as pt on p.type = pt.value where pt.name = 'GALAXY' and p.ra between 140.9 and 141.1 and p.g < 18.0 and p.u - p.g > 2.2",
+    "difficulty": ""
+  },
+  {
+    "question_id": 127,
+    "db_id": "sdss",
+    "question": "Show me the object id, right ascension and declination of photometrically observed Galaxy, of which the the right ascension in a range of from 140.9 to 141.1, the magnitude g is less than 18.0 and the difference of magnitude u and g is higher than 2.2",
+    "evidence": "",
+    "SQL": "select objid, ra, dec from photoobj as p join photo_type as pt on p.type = pt.value where pt.name = 'GALAXY' and p.ra between 140.9 and 141.1 and p.g < 18.0 and p.u - p.g > 2.2",
+    "difficulty": ""
+  },
+  {
+    "question_id": 128,
+    "db_id": "sdss",
+    "question": "Find the object id, right ascension and declination of spectroscopic Galaxy, which have value of magnitude g between 17 and 18 and redshift less than 0.05. ",
+    "evidence": "",
+    "SQL": "select p.objid, p.ra, p.dec from photoobj as p join specobj as s on s.bestobjid = p.objid where s.class = 'GALAXY' and p.g between 17 and 18 and s.z < 0.05",
+    "difficulty": ""
+  },
+  {
+    "question_id": 129,
+    "db_id": "sdss",
+    "question": "Fetch me the object id, right ascension and declination of spectroscopic Galaxy with the color band magnitude g brighter than 18.0 but fainter than 17 and redshift lower than 0.05",
+    "evidence": "",
+    "SQL": "select p.objid, p.ra, p.dec from photoobj as p join specobj as s on s.bestobjid = p.objid where s.class = 'GALAXY' and p.g between 17 and 18 and s.z < 0.05",
+    "difficulty": ""
+  },
+  {
+    "question_id": 130,
+    "db_id": "sdss",
+    "question": "Search for photometrically observed Star with the difference of magnitude u and magnitude g is less than 0.5. Retrieve each object id, right ascension and declination.",
+    "evidence": "",
+    "SQL": "select p.objid, p.ra, p.dec from photoobj as p join photo_type as pt on p.type = pt.value where pt.name = 'STAR' and p.u - p.g < 0.5",
+    "difficulty": ""
+  },
+  {
+    "question_id": 131,
+    "db_id": "sdss",
+    "question": "Show me the object id, right ascension and declination of photometrically observable Star with the constraints: color band u - g < 0.5 ",
+    "evidence": "",
+    "SQL": "select p.objid, p.ra, p.dec from photoobj as p join photo_type as pt on p.type = pt.value where pt.name = 'STAR' and p.u - p.g < 0.5",
+    "difficulty": ""
+  },
+  {
+    "question_id": 132,
+    "db_id": "sdss",
+    "question": "Search for photometrically observed Star that has a difference of magnitude u and magnitude g less than 0.5. Retrieve all magnitude values (u, g, r, i and z) of these objects.",
+    "evidence": "",
+    "SQL": "select p.u, p.g, p.r, p.i, p.z from photoobj as p join photo_type as pt on p.type = pt.value where pt.name = 'STAR' and p.u - p.g < 0.5",
+    "difficulty": ""
+  },
+  {
+    "question_id": 133,
+    "db_id": "sdss",
+    "question": "Fetch all color bands (magnitude u, g, r, i, z) of photometrically observable Star where color band u - g < 0.5",
+    "evidence": "",
+    "SQL": "select p.u, p.g, p.r, p.i, p.z from photoobj as p join photo_type as pt on p.type = pt.value where pt.name = 'STAR' and p.u - p.g < 0.5",
+    "difficulty": ""
+  },
+  {
+    "question_id": 134,
+    "db_id": "sdss",
+    "question": "Find the object id, right ascension and declination from spectroscopically observed GALAXY whose value of magnitude g fainter than 17 but brighter than 18, and redshift less than 0.05. ",
+    "evidence": "",
+    "SQL": "select p.objid, p.ra, p.dec from photoobj as p join specobj as s on s.bestobjid = p.objid where s.class = 'GALAXY' and p.g between 17 and 18 and s.z < 0.05",
+    "difficulty": ""
+  },
+  {
+    "question_id": 135,
+    "db_id": "sdss",
+    "question": "Show me the spectroscopically observable Galaxy with magnitude g between 17 and 18, and redshift below 0.05. Retrieve the object id, right ascension and declination of them.",
+    "evidence": "",
+    "SQL": "select p.objid, p.ra, p.dec from photoobj as p join specobj as s on s.bestobjid = p.objid where s.class = 'GALAXY' and p.g between 17 and 18 and s.z < 0.05",
+    "difficulty": ""
+  },
+  {
+    "question_id": 136,
+    "db_id": "sdss",
+    "question": "Find all magnitude values (u, g, r, i and z) from spectroscopically observable GALAXY whose value of magnitude g between 17 and 18,  and redshift less than 0.05. ",
+    "evidence": "",
+    "SQL": "select p.u, p.g, p.r, p.i, p.z from photoobj as p join specobj as s on s.bestobjid = p.objid where s.class = 'GALAXY' and p.g between 17 and 18 and s.z < 0.05",
+    "difficulty": ""
+  },
+  {
+    "question_id": 137,
+    "db_id": "sdss",
+    "question": "Fetch all color bands (magnitude u, g, r, i, z) of spectroscopically observable Galaxy with color band g fainter than 17 but brighter than 18 and redshift lower than 0.05",
+    "evidence": "",
+    "SQL": "select p.u, p.g, p.r, p.i, p.z from photoobj as p join specobj as s on s.bestobjid = p.objid where s.class = 'GALAXY' and p.g between 17 and 18 and s.z < 0.05",
+    "difficulty": ""
+  },
+  {
+    "question_id": 138,
+    "db_id": "sdss",
+    "question": "Find the photometric objects with object ids, nearst neighbor ids, distance of center-neighbors, center types.",
+    "evidence": "",
+    "SQL": "select p.objid, n.neighborobjid, n.distance, n.type from neighbors as n join photoobj as p on n.objid = p.objid",
+    "difficulty": ""
+  },
+  {
+    "question_id": 139,
+    "db_id": "sdss",
+    "question": "Fetch me the object id, nearst neighbor ids, distance of center to neighbors and center type from all of the nearst neighbors",
+    "evidence": "",
+    "SQL": "select p.objid, n.neighborobjid, n.distance, n.type from neighbors as n join photoobj as p on n.objid = p.objid",
+    "difficulty": ""
+  },
+  {
+    "question_id": 140,
+    "db_id": "sdss",
+    "question": "Find the different object type classifications of photometric objects whose right ascension is greater than 100 and declination is less than 100.",
+    "evidence": "",
+    "SQL": "select distinct p.type from photoobj as p where p.ra > 100 and p.dec < 100",
+    "difficulty": ""
+  },
+  {
+    "question_id": 141,
+    "db_id": "sdss",
+    "question": "What is the unique object type classifications of photometrically observed objects with right ascension higher than 100 and declination lower than 100",
+    "evidence": "",
+    "SQL": "select distinct p.type from photoobj as p where p.ra > 100 and p.dec < 100",
+    "difficulty": ""
+  },
+  {
+    "question_id": 142,
+    "db_id": "sdss",
+    "question": "Find the number of photometrically observed STAR",
+    "evidence": "",
+    "SQL": "select count(*) from photoobj as p join photo_type as pt on p.type = pt.value where pt.name = 'STAR'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 143,
+    "db_id": "sdss",
+    "question": "Count the photometrically observable STAR",
+    "evidence": "",
+    "SQL": "select count(*) from photoobj as p join photo_type as pt on p.type = pt.value where pt.name = 'STAR'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 144,
+    "db_id": "sdss",
+    "question": "Find all photometrically observed object types. Return only unique records.",
+    "evidence": "",
+    "SQL": "select distinct pt.name from photo_type as pt join photoobj as p on p.type = pt.value",
+    "difficulty": ""
+  },
+  {
+    "question_id": 145,
+    "db_id": "sdss",
+    "question": "Show me the all different photometrical observation types among all photometric objects.",
+    "evidence": "",
+    "SQL": "select distinct pt.name from photo_type as pt join photoobj as p on p.type = pt.value",
+    "difficulty": ""
+  },
+  {
+    "question_id": 146,
+    "db_id": "sdss",
+    "question": "Find everything about photometrically observable Galaxy.",
+    "evidence": "",
+    "SQL": "select * from photoobj as p join photo_type as pt on p.type = pt.value where pt.name = 'GALAXY'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 147,
+    "db_id": "sdss",
+    "question": "Fetch me all about photometrically observed Galaxy",
+    "evidence": "",
+    "SQL": "select * from photoobj as p join photo_type as pt on p.type = pt.value where pt.name = 'GALAXY'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 148,
+    "db_id": "sdss",
+    "question": "Find the object ids, right ascensions, declinations and observed types of photometrically observed Star.",
+    "evidence": "",
+    "SQL": "select p.objid, p.ra, p.dec, pt.name from photoobj as p join photo_type as pt on p.type = pt.value where pt.name = 'STAR'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 149,
+    "db_id": "sdss",
+    "question": "What is the photometrically observable Star? Retrieve their right ascension, declinations and observed type as well.",
+    "evidence": "",
+    "SQL": "select p.objid, p.ra, p.dec, pt.name from photoobj as p join photo_type as pt on p.type = pt.value where pt.name = 'STAR'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 150,
+    "db_id": "sdss",
+    "question": "Find the photometric objects with object ids, spectroscopic object id whose spectroscopic class is 'GALAXY', with the difference of magnitude u and magnitude r greater trhan 2.22 and the difference of magnitude g and magnitude i greater than 1.",
+    "evidence": "",
+    "SQL": "select p.objid, s.specobjid from photoobj as p join specobj as s on s.bestobjid = p.objid where s.class = 'GALAXY' and p.u - p.r > 2.22 and p.g - p.i > 1",
+    "difficulty": ""
+  },
+  {
+    "question_id": 151,
+    "db_id": "sdss",
+    "question": "What is the photometric objct id and corresponding spectroscopic object id of the spectroscopically observable Galaxy with the constraints in color bands, where u - r > 2.22 and g - i > 1",
+    "evidence": "",
+    "SQL": "select p.objid, s.specobjid from photoobj as p join specobj as s on s.bestobjid = p.objid where s.class = 'GALAXY' and p.u - p.r > 2.22 and p.g - p.i > 1",
+    "difficulty": ""
+  },
+  {
+    "question_id": 152,
+    "db_id": "sdss",
+    "question": "Show me the photometric object id and modified julien date for all 'K' type Star",
+    "evidence": "",
+    "SQL": "SELECT T2.objid, T1.mjd FROM specobj AS T1 JOIN photoobj as T2 ON T1.bestobjid = T2.objid WHERE T1.class = 'STAR' and T1.subclass like '%K%'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 153,
+    "db_id": "sdss",
+    "question": "What is the photometric object id and modified julien date of spectroscopic Star with spectral type 'K'",
+    "evidence": "",
+    "SQL": "SELECT T2.objid, T1.mjd FROM specobj AS T1 JOIN photoobj as T2 ON T1.bestobjid = T2.objid WHERE T1.class = 'STAR' and T1.subclass like '%K%'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 154,
+    "db_id": "sdss",
+    "question": "Find redshift, right ascension and declination of all photometrically observed Starforming Galaxy",
+    "evidence": "",
+    "SQL": "SELECT T1.z, T1.ra, T1.dec FROM specobj AS T1 JOIN photoobj AS T2 ON T1.bestobjid = T2.objid JOIN photo_type AS T3 ON T2.type = T3.value WHERE T1.subclass = 'STARFORMING' AND T3.name = 'GALAXY'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 155,
+    "db_id": "sdss",
+    "question": "What is the redshift of STARFORMING GALAXY, which can be observed photometrically? Retrieve their right ascension and declination as well.",
+    "evidence": "",
+    "SQL": "SELECT T1.z, T1.ra, T1.dec FROM specobj AS T1 JOIN photoobj AS T2 ON T1.bestobjid = T2.objid JOIN photo_type AS T3 ON T2.type = T3.value WHERE T1.subclass = 'STARFORMING' AND T3.name = 'GALAXY'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 156,
+    "db_id": "sdss",
+    "question": "What are the mininum of the extinction r grouped by run number of photometric Galaxy?",
+    "evidence": "",
+    "SQL": "SELECT min( T1.extinction_r), T1.run FROM photoobj AS T1 JOIN photo_type AS T2 ON T1.type = T2.value WHERE T2.name = 'GALAXY' GROUP BY T1.run",
+    "difficulty": ""
+  },
+  {
+    "question_id": 157,
+    "db_id": "sdss",
+    "question": "Find the minimal value of the extinction r for each run number across the photometrically observed Galaxy",
+    "evidence": "",
+    "SQL": "SELECT min( T1.extinction_r), T1.run FROM photoobj AS T1 JOIN photo_type AS T2 ON T1.type = T2.value WHERE T2.name = 'GALAXY' GROUP BY T1.run",
+    "difficulty": ""
+  },
+  {
+    "question_id": 158,
+    "db_id": "sdss",
+    "question": "What are the galactic coordinates of all Quasi stellar object (QSO)",
+    "evidence": "",
+    "SQL": "SELECT T1.b, T1.l FROM photoobj AS T1 JOIN specobj AS T2 ON T1.objid = T2.bestobjid where T2.class = 'QSO'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 159,
+    "db_id": "sdss",
+    "question": "Find me the galactic latitude and longitude of all Quasi stellar object (QSO)",
+    "evidence": "",
+    "SQL": "SELECT T1.b, T1.l FROM photoobj AS T1 JOIN specobj AS T2 ON T1.objid = T2.bestobjid where T2.class = 'QSO'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 160,
+    "db_id": "sdss",
+    "question": "How many photometrically observable Binary Star system we can find, in which it has a distance from cetner to nearest neighbor of under 0.05, a difference of magnitude u and g below 0.4, a difference of magnitude g and r below 0.7, a difference of magnitude r and i above 0.4, and a difference of magnitude i and z above 0.4.",
+    "evidence": "",
+    "SQL": "SELECT count( T1.objid ) FROM neighbors AS T1 JOIN photoobj AS T2 ON T1.objid = T2.objid JOIN photo_type AS T3 ON T2.type = T3.value WHERE T3.name = 'STAR' and T1.neighbortype = T2.type and T1.distance < 0.05 and T2.u - T2.g < 0.4 and T2.g - T2.r < 0.7 and T2.r - T2.i > 0.4 and T2.i - T2.z > 0.4",
+    "difficulty": ""
+  },
+  {
+    "question_id": 161,
+    "db_id": "sdss",
+    "question": "Count the number of photometrically observed Binary Star system, where the distance between center and neighbor below 0.05 and with the following constraints, u - g < 0.4, g - r < 0.7, r - i > 0.4, i - z > 0.4",
+    "evidence": "",
+    "SQL": "SELECT count( T1.objid ) FROM neighbors AS T1 JOIN photoobj AS T2 ON T1.objid = T2.objid JOIN photo_type AS T3 ON T2.type = T3.value WHERE T3.name = 'STAR' and T1.neighbortype = T2.type and T1.distance < 0.05 and T2.u - T2.g < 0.4 and T2.g - T2.r < 0.7 and T2.r - T2.i > 0.4 and T2.i - T2.z > 0.4",
+    "difficulty": ""
+  },
+  {
+    "question_id": 162,
+    "db_id": "sdss",
+    "question": "Count all star in photometrically observable Binary Star system, of which the neighbor's distance less than 0.05, the difference of magnitude u and magnitude g is lower than 0.4, the difference of magnitude g and magnitude r is lower than 0.7, the difference of magnitude r and magnitude i is higher than 0.4 and the difference of magnitude i and magnitude z is higher than 0.4",
+    "evidence": "",
+    "SQL": "SELECT COUNT(p.objid) FROM photoobj AS p JOIN photo_type AS pt ON p.type = pt.value WHERE pt.name = 'STAR' AND (p.u - p.g) < 0.4 AND (p.g - p.r) < 0.7 AND (p.r - p.i) > 0.4 AND (p.i - p.z) > 0.4 AND p.objid in (SELECT n.objid FROM neighbors AS n JOIN photo_type AS pt ON n.neighbortype = pt.value WHERE n.distance < 0.05 AND pt.name = 'STAR')",
+    "difficulty": ""
+  },
+  {
+    "question_id": 163,
+    "db_id": "sdss",
+    "question": "How many photometrically observable Binary Star system were found, of which the distance to nearst neighbor below 0.05, the difference of magnitude u and g less than 0.4, the difference of magnitude g and r less than 0.7, the difference of magnitude r and i greater than 0.4, and the difference of magnitude i and z greater than 0.4.",
+    "evidence": "",
+    "SQL": "SELECT COUNT(p.objid) FROM photoobj AS p JOIN photo_type AS pt ON p.type = pt.value WHERE pt.name = 'STAR' AND (p.u - p.g) < 0.4 AND (p.g - p.r) < 0.7 AND (p.r - p.i) > 0.4 AND (p.i - p.z) > 0.4 AND p.objid in (SELECT n.objid FROM neighbors AS n JOIN photo_type AS pt ON n.neighbortype = pt.value WHERE n.distance < 0.05 AND pt.name = 'STAR')",
+    "difficulty": ""
+  },
+  {
+    "question_id": 164,
+    "db_id": "sdss",
+    "question": "Find all star observed both photometrically and spectroscopically whose subclass is 'Carbon'",
+    "evidence": "",
+    "SQL": "select s.specobjid from specobj as s JOIN photoobj as p ON s.bestobjid = p.objid JOIN photo_type as pt ON p.type = pt.value WHERE s.class = 'STAR' and pt.name = 'STAR' and s.subclass = 'Carbon'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 165,
+    "db_id": "sdss",
+    "question": "Show me the photometrically observable Star with subclass of Carbon, which was spectroscopically observed as well",
+    "evidence": "",
+    "SQL": "select s.specobjid from specobj as s JOIN photoobj as p ON s.bestobjid = p.objid JOIN photo_type as pt ON p.type = pt.value WHERE s.class = 'STAR' and pt.name = 'STAR' and s.subclass = 'Carbon'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 166,
+    "db_id": "sdss",
+    "question": "Find the number of photometrically observed Galaxy",
+    "evidence": "",
+    "SQL": "select COUNT(*) from photoobj as p join photo_type as pt on p.type = pt.value where pt.name = 'GALAXY'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 167,
+    "db_id": "sdss",
+    "question": "Count the number of photometrically observable Galaxy",
+    "evidence": "",
+    "SQL": "select COUNT(*) from photoobj as p join photo_type as pt on p.type = pt.value where pt.name = 'GALAXY'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 168,
+    "db_id": "sdss",
+    "question": "Find the object ids, classes and subclasses of spectroscopically and photometrically observable Galaxy with AGN.",
+    "evidence": "",
+    "SQL": "select s.specobjid, s.class, s.subclass from specobj as s join photoobj as p on s.bestobjid = p.objid join photo_type as pt on p.type = pt.value where s.subclass like '%AGN%' and s.class = 'GALAXY' and pt.name = 'GALAXY'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 169,
+    "db_id": "sdss",
+    "question": "Fetch me the spectroscopic object id, the spectroscopic class and subclass of Galaxy with AGN observed both spectroscopically and photometrically.",
+    "evidence": "",
+    "SQL": "select s.specobjid, s.class, s.subclass from specobj as s join photoobj as p on s.bestobjid = p.objid join photo_type as pt on p.type = pt.value where s.subclass like '%AGN%' and s.class = 'GALAXY' and pt.name = 'GALAXY'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 170,
+    "db_id": "sdss",
+    "question": "Show me the least distance of the nearst photometrically observable Star",
+    "evidence": "",
+    "SQL": "SELECT min(n.distance) FROM neighbors AS n JOIN photo_type AS pt ON n.neighbortype = pt.value JOIN photoobj AS p ON p.objid = n.objid WHERE pt.name = 'STAR' and p.objid in (SELECT p.objid FROM photoobj AS p JOIN photo_type AS pt ON p.type = pt.value WHERE pt.name = 'STAR')",
+    "difficulty": ""
+  },
+  {
+    "question_id": 171,
+    "db_id": "sdss",
+    "question": "What is the minimal distance between the nearest photometrically observed Star?",
+    "evidence": "",
+    "SQL": "SELECT min(n.distance) FROM neighbors AS n JOIN photo_type AS pt ON n.neighbortype = pt.value JOIN photoobj AS p ON p.objid = n.objid WHERE pt.name = 'STAR' and p.objid in (SELECT p.objid FROM photoobj AS p JOIN photo_type AS pt ON p.type = pt.value WHERE pt.name = 'STAR')",
+    "difficulty": ""
+  },
+  {
+    "question_id": 172,
+    "db_id": "sdss",
+    "question": "Show me the longest distance of the photometrically observable GALAXY neighbors",
+    "evidence": "",
+    "SQL": "SELECT max(n.distance) FROM neighbors AS n JOIN photo_type AS pt ON n.neighbortype = pt.value JOIN photoobj AS p ON p.objid = n.objid WHERE pt.name = 'GALAXY' and p.objid in (SELECT p.objid FROM photoobj AS p JOIN photo_type AS pt ON p.type = pt.value WHERE pt.name = 'GALAXY')",
+    "difficulty": ""
+  },
+  {
+    "question_id": 173,
+    "db_id": "sdss",
+    "question": "What is the maximal distance between the nearest photometrically observed Star?",
+    "evidence": "",
+    "SQL": "SELECT max(n.distance) FROM neighbors AS n JOIN photo_type AS pt ON n.neighbortype = pt.value JOIN photoobj AS p ON p.objid = n.objid WHERE pt.name = 'GALAXY' and p.objid in (SELECT p.objid FROM photoobj AS p JOIN photo_type AS pt ON p.type = pt.value WHERE pt.name = 'GALAXY')",
+    "difficulty": ""
+  },
+  {
+    "question_id": 174,
+    "db_id": "sdss",
+    "question": "What are the galactic coordinates of the center object with the least distance to its nearest neighbor. Please retrieve the distance also.",
+    "evidence": "",
+    "SQL": "SELECT p.b, p.l, n.distance from photoobj as p join neighbors n on p.objid = n.objid where n.distance = (select min(n.distance) from neighbors as n)",
+    "difficulty": ""
+  },
+  {
+    "question_id": 175,
+    "db_id": "sdss",
+    "question": "Fetch the least distance of the nearst neighbors. Retrieve the corresponding galactic latitude, galactic longitude as well.",
+    "evidence": "",
+    "SQL": "SELECT p.b, p.l, n.distance from photoobj as p join neighbors n on p.objid = n.objid where n.distance = (select min(n.distance) from neighbors as n)",
+    "difficulty": ""
+  },
+  {
+    "question_id": 176,
+    "db_id": "sdss",
+    "question": "What are the galactic coordinates of the center object with the least distance to its nearest neighbor. Please retrieve the distance also.",
+    "evidence": "",
+    "SQL": "SELECT p.b, p.l, n.distance from photoobj as p join neighbors as n on p.objid = n.objid order by n.distance asc limit 1",
+    "difficulty": ""
+  },
+  {
+    "question_id": 177,
+    "db_id": "sdss",
+    "question": "Show me the galactic coordinates of the center object with the least distance to the nearest neighbors. Return the distance as well.",
+    "evidence": "",
+    "SQL": "SELECT p.b, p.l, n.distance from photoobj as p join neighbors as n on p.objid = n.objid order by n.distance asc limit 1",
+    "difficulty": ""
+  },
+  {
+    "question_id": 178,
+    "db_id": "sdss",
+    "question": "Show me the redshift of the center object with the least distance to its nearest neighbor",
+    "evidence": "",
+    "SQL": "SELECT s.z from specobj as s join photoobj as p on s.bestobjid = p.objid join neighbors as n on p.objid = n.objid where n.distance = (select min(n.distance) from neighbors as n)",
+    "difficulty": ""
+  },
+  {
+    "question_id": 179,
+    "db_id": "sdss",
+    "question": "What is the redshift of the center object that has the minimal distance to the nearest neighbor",
+    "evidence": "",
+    "SQL": "SELECT s.z from specobj as s join photoobj as p on s.bestobjid = p.objid join neighbors as n on p.objid = n.objid where n.distance = (select min(n.distance) from neighbors as n)",
+    "difficulty": ""
+  },
+  {
+    "question_id": 180,
+    "db_id": "sdss",
+    "question": "Show me the redshift of the center object with the least distance to its nearest neighbor",
+    "evidence": "",
+    "SQL": "SELECT s.z from specobj as s join photoobj as p on s.bestobjid = p.objid join neighbors as n on p.objid = n.objid order by n.distance asc limit 1",
+    "difficulty": ""
+  },
+  {
+    "question_id": 181,
+    "db_id": "sdss",
+    "question": "What is the redshift of the center object that has the minimal distance to the nearest neighbor",
+    "evidence": "",
+    "SQL": "SELECT s.z from specobj as s join photoobj as p on s.bestobjid = p.objid join neighbors as n on p.objid = n.objid order by n.distance asc limit 1",
+    "difficulty": ""
+  },
+  {
+    "question_id": 182,
+    "db_id": "sdss",
+    "question": "List all unique run numbers",
+    "evidence": "",
+    "SQL": "select distinct p.run from photoobj as p",
+    "difficulty": ""
+  },
+  {
+    "question_id": 183,
+    "db_id": "sdss",
+    "question": "Find all run numbers without duplicates",
+    "evidence": "",
+    "SQL": "select distinct p.run from photoobj as p",
+    "difficulty": ""
+  },
+  {
+    "question_id": 184,
+    "db_id": "sdss",
+    "question": "How many different run number are there",
+    "evidence": "",
+    "SQL": "select count(distinct p.run) from photoobj as p",
+    "difficulty": ""
+  },
+  {
+    "question_id": 185,
+    "db_id": "sdss",
+    "question": "Count all unique run numbers",
+    "evidence": "",
+    "SQL": "select count(distinct p.run) from photoobj as p",
+    "difficulty": ""
+  },
+  {
+    "question_id": 186,
+    "db_id": "sdss",
+    "question": "Find the number of photometric objects grouped by their photometrically observed type name.",
+    "evidence": "",
+    "SQL": "select pt.name, count(*) from photoobj as p join photo_type as pt on pt.value = p.type group by pt.name",
+    "difficulty": ""
+  },
+  {
+    "question_id": 187,
+    "db_id": "sdss",
+    "question": "How many photometric objects for each photometrically observation type are there?",
+    "evidence": "",
+    "SQL": "select pt.name, count(*) from photoobj as p join photo_type as pt on pt.value = p.type group by pt.name",
+    "difficulty": ""
+  },
+  {
+    "question_id": 188,
+    "db_id": "sdss",
+    "question": "Find right ascension, declination and photometric type class of equivalent width estimates of galactic-stars from these spectroscopic objects.",
+    "evidence": "",
+    "SQL": "select p.ra, p.dec, p.type from spplines as sp join specobj as s on sp.specobjid = s.specobjid join photoobj as p on p.objid = s.bestobjid",
+    "difficulty": ""
+  },
+  {
+    "question_id": 189,
+    "db_id": "sdss",
+    "question": "Fetch the right ascension and declination of spectroscopic objects those have equivalent width estimates of galactic-stars",
+    "evidence": "",
+    "SQL": "select p.ra, p.dec, p.type from spplines as sp join specobj as s on sp.specobjid = s.specobjid join photoobj as p on p.objid = s.bestobjid",
+    "difficulty": ""
+  },
+  {
+    "question_id": 190,
+    "db_id": "sdss",
+    "question": "Find the object id and photometric observation type of photometric objects whose right ascension is greater than 100 and declination is less than 100.",
+    "evidence": "",
+    "SQL": "select p.objid, pt.name from photoobj as p join photo_type as pt on p.type = pt.value where p.ra > 100 and p.dec < 100",
+    "difficulty": ""
+  },
+  {
+    "question_id": 191,
+    "db_id": "sdss",
+    "question": "Retrieve the photometric object id and type name of corresponding photometric observation from the objects with the right ascension over 100 and declination below 100.",
+    "evidence": "",
+    "SQL": "select p.objid, pt.name from photoobj as p join photo_type as pt on p.type = pt.value where p.ra > 100 and p.dec < 100",
+    "difficulty": ""
+  },
+  {
+    "question_id": 192,
+    "db_id": "sdss",
+    "question": "Find the photometric object id, right ascension and declination of corresponding spectroscopic objects, from which it has emission line estimates of galaxies.",
+    "evidence": "",
+    "SQL": "select p.objid, p.ra, p.dec from photoobj as p join specobj as s on s.bestobjid = p.objid join galspecline as g on s.specobjid = g.specobjid",
+    "difficulty": ""
+  },
+  {
+    "question_id": 193,
+    "db_id": "sdss",
+    "question": "What is the best photometric object to the corresponding spectroscopic object that has emission line estimates of galaxies? Return me the object id, right ascension and declination of the best object.",
+    "evidence": "",
+    "SQL": "select p.objid, p.ra, p.dec from photoobj as p join specobj as s on s.bestobjid = p.objid join galspecline as g on s.specobjid = g.specobjid",
+    "difficulty": ""
+  },
+  {
+    "question_id": 194,
+    "db_id": "sdss",
+    "question": "Find spectroscopic objects of equivalent width estimates of galactic-stars from these spectroscopic objects.",
+    "evidence": "",
+    "SQL": "select sp.specobjid from spplines as sp join specobj as s on sp.specobjid = s.specobjid",
+    "difficulty": ""
+  },
+  {
+    "question_id": 195,
+    "db_id": "sdss",
+    "question": "What is the equivalent width estimates of galactic-stars of spectroscopic objects",
+    "evidence": "",
+    "SQL": "select sp.specobjid from spplines as sp join specobj as s on sp.specobjid = s.specobjid",
+    "difficulty": ""
+  },
+  {
+    "question_id": 196,
+    "db_id": "sdss",
+    "question": "How many spectroscopic objects of equivalent width estimates of galactic-stars from these spectroscopic objects are there?",
+    "evidence": "",
+    "SQL": "select count(sp.specobjid) from spplines as sp join specobj as s on sp.specobjid = s.specobjid",
+    "difficulty": ""
+  },
+  {
+    "question_id": 197,
+    "db_id": "sdss",
+    "question": "Count the number of spectroscopic objects that has equivalent width estimates of galactic-stars.",
+    "evidence": "",
+    "SQL": "select count(sp.specobjid) from spplines as sp join specobj as s on sp.specobjid = s.specobjid",
+    "difficulty": ""
+  },
+  {
+    "question_id": 198,
+    "db_id": "sdss",
+    "question": "Find everything about spectroscopic objects and everything about emission line estimates of galaxies from these spectroscopic objects.",
+    "evidence": "",
+    "SQL": "select * from specobj as s join galspecline as g on s.specobjid = g.specobjid",
+    "difficulty": ""
+  },
+  {
+    "question_id": 199,
+    "db_id": "sdss",
+    "question": "Show me everything about emission line estimates of galaxies of corresponding spectroscopic objects",
+    "evidence": "",
+    "SQL": "select * from specobj as s join galspecline as g on s.specobjid = g.specobjid",
+    "difficulty": ""
+  },
+  {
+    "question_id": 200,
+    "db_id": "oncomx",
+    "question": "Show me all disease mutations with ref_aa E",
+    "evidence": "",
+    "SQL": "SELECT * FROM disease_mutation WHERE ref_aa = 'E'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 201,
+    "db_id": "oncomx",
+    "question": "In how many FDA tests was manufacturer 23andMe involved?",
+    "evidence": "",
+    "SQL": "SELECT count(*) FROM biomarker_fda_test WHERE biomarker_fda_test.test_manufacturer = '23andMe'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 202,
+    "db_id": "oncomx",
+    "question": "What is the common name for species 'Mus'?",
+    "evidence": "",
+    "SQL": "SELECT speciescommonname FROM species WHERE genus = 'Mus'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 203,
+    "db_id": "oncomx",
+    "question": "What species are there?",
+    "evidence": "",
+    "SQL": "SELECT * FROM species",
+    "difficulty": ""
+  },
+  {
+    "question_id": 204,
+    "db_id": "oncomx",
+    "question": "Show me all disease mutations",
+    "evidence": "",
+    "SQL": "SELECT * FROM disease_mutation",
+    "difficulty": ""
+  },
+  {
+    "question_id": 205,
+    "db_id": "oncomx",
+    "question": "Get a list of all biomarker descriptions",
+    "evidence": "",
+    "SQL": "SELECT biomarker_description FROM biomarker",
+    "difficulty": ""
+  },
+  {
+    "question_id": 206,
+    "db_id": "oncomx",
+    "question": "In how many fda test trials was test manufacturer 'ABBOTT MOLECULAR INC' involved?",
+    "evidence": "",
+    "SQL": "SELECT count(*) FROM biomarker_fda_test JOIN biomarker_fda_test_trial ON biomarker_fda_test.test_submission = biomarker_fda_test_trial.test_submission and biomarker_fda_test.test_trade_name = biomarker_fda_test_trial.test_trade_name WHERE test_manufacturer = 'ABBOTT MOLECULAR INC'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 207,
+    "db_id": "oncomx",
+    "question": "Show the gene symbol and the description of cancer biomarkers with panel = 'false'",
+    "evidence": "",
+    "SQL": "SELECT biomarker.gene_symbol, biomarker_description FROM biomarker WHERE test_is_a_panel = 'false'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 208,
+    "db_id": "oncomx",
+    "question": "Show all information about diseases where the name contains 'cancer'",
+    "evidence": "",
+    "SQL": "SELECT name FROM disease WHERE name like '%cancer%'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 209,
+    "db_id": "oncomx",
+    "question": "Show me all biomarker titles and QA states for biomarker on EDRN in phase Two",
+    "evidence": "",
+    "SQL": "SELECT biomarker_title, qa_state FROM biomarker_edrn WHERE phase = 'Two'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 210,
+    "db_id": "oncomx",
+    "question": "Show me biomarker titles and qa states for biomarker in phase Two",
+    "evidence": "",
+    "SQL": "SELECT biomarker_title, qa_state FROM biomarker_edrn WHERE phase = 'Two'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 211,
+    "db_id": "oncomx",
+    "question": "Show me all gene symbols of biomarkers",
+    "evidence": "",
+    "SQL": "SELECT gene_symbol FROM biomarker",
+    "difficulty": ""
+  },
+  {
+    "question_id": 212,
+    "db_id": "oncomx",
+    "question": "Show me all biomarkers on the EDRN platform which are not of type protein.",
+    "evidence": "",
+    "SQL": "SELECT biomarker_title FROM biomarker_edrn WHERE biomarker_type != 'Protein'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 213,
+    "db_id": "oncomx",
+    "question": "Show me the title of biomarkers on the EDRN platform with biomarker type different from Protein.",
+    "evidence": "",
+    "SQL": "SELECT biomarker_title FROM biomarker_edrn WHERE biomarker_type != 'Protein'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 214,
+    "db_id": "oncomx",
+    "question": "Identify a list of genes expressed in lung cancer",
+    "evidence": "",
+    "SQL": "SELECT differential_expression.gene_symbol FROM differential_expression JOIN disease ON differential_expression.doid = disease.id WHERE disease.name = 'lung cancer'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 215,
+    "db_id": "oncomx",
+    "question": "Show biomarker gene symbol and description for 'breast cancer'",
+    "evidence": "",
+    "SQL": "SELECT biomarker.gene_symbol, biomarker.biomarker_description FROM biomarker JOIN biomarker_fda on biomarker.id = biomarker_fda.id JOIN biomarker_fda_test ON biomarker_fda.test_submission = biomarker_fda_test.test_submission and biomarker_fda.test_trade_name = biomarker_fda_test.test_trade_name JOIN disease ON disease.id = biomarker_fda_test.doid WHERE disease.name = 'breast cancer'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 216,
+    "db_id": "oncomx",
+    "question": "What are the different biomarker EDRN phases?",
+    "evidence": "",
+    "SQL": "SELECT DISTINCT phase from biomarker_edrn",
+    "difficulty": ""
+  },
+  {
+    "question_id": 217,
+    "db_id": "oncomx",
+    "question": "List the platform method an the test study design for FDA tests from test manufacturer Dako Denmark A/S",
+    "evidence": "",
+    "SQL": "SELECT platform_method, test_study_design FROM biomarker_fda_test WHERE test_manufacturer = 'Dako Denmark A/S'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 218,
+    "db_id": "oncomx",
+    "question": "Get the p-value of differential expressions for the disease 'lung cancer'",
+    "evidence": "",
+    "SQL": "SELECT differential_expression.pvalue FROM differential_expression JOIN disease ON differential_expression.doid = disease.id WHERE disease.name = 'lung cancer'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 219,
+    "db_id": "oncomx",
+    "question": "Show disease mutation chromosome positions for skin cancer",
+    "evidence": "",
+    "SQL": "SELECT disease_mutation.chromosome_pos FROM disease_mutation JOIN disease ON disease_mutation.doid = disease.id WHERE disease.name = 'skin cancer'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 220,
+    "db_id": "oncomx",
+    "question": "List all disease mutation chromosome positions data for disease skin cancer",
+    "evidence": "",
+    "SQL": "SELECT disease_mutation.chromosome_pos FROM disease_mutation JOIN disease ON disease_mutation.doid = disease.id WHERE disease.name = 'skin cancer'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 221,
+    "db_id": "oncomx",
+    "question": "Show me all information about disease mutations with amino acid residue (ref_aa) equal to E",
+    "evidence": "",
+    "SQL": "SELECT * FROM disease_mutation WHERE ref_aa = 'E'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 222,
+    "db_id": "oncomx",
+    "question": "How many FDA tests did manufacturer 23andMe?",
+    "evidence": "",
+    "SQL": "SELECT count(*) FROM biomarker_fda_test WHERE biomarker_fda_test.test_manufacturer = '23andMe'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 223,
+    "db_id": "oncomx",
+    "question": "What are the name of cancer types where the A1BG gene expression is significantly increased (up regulated)",
+    "evidence": "",
+    "SQL": "SELECT disease.name FROM differential_expression JOIN disease ON differential_expression.doid = disease.id WHERE differential_expression.gene_symbol = 'A1BG' and differential_expression.expression_change_direction = 'up'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 224,
+    "db_id": "oncomx",
+    "question": "Show me all information about species",
+    "evidence": "",
+    "SQL": "SELECT * FROM species",
+    "difficulty": ""
+  },
+  {
+    "question_id": 225,
+    "db_id": "oncomx",
+    "question": "Return the symbol and p-value for the expression of EGFR in lung cancer ",
+    "evidence": "",
+    "SQL": "SELECT differential_expression.gene_symbol, differential_expression.pvalue FROM differential_expression JOIN disease ON differential_expression.doid = disease.id WHERE differential_expression.gene_symbol = 'EGFR' AND disease.name = 'lung cancer'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 226,
+    "db_id": "oncomx",
+    "question": "Return gen symbol and pvalue for the expression of gene with symbol 'EGFR' in lung cancer ",
+    "evidence": "",
+    "SQL": "SELECT differential_expression.gene_symbol, differential_expression.pvalue FROM differential_expression JOIN disease ON differential_expression.doid = disease.id WHERE differential_expression.gene_symbol = 'EGFR' AND disease.name = 'lung cancer'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 227,
+    "db_id": "oncomx",
+    "question": "Show all information about disease mutations",
+    "evidence": "",
+    "SQL": "SELECT * FROM disease_mutation",
+    "difficulty": ""
+  },
+  {
+    "question_id": 228,
+    "db_id": "oncomx",
+    "question": "How many healthy expression are there for 'late adult stage'?",
+    "evidence": "",
+    "SQL": "SELECT COUNT(*) FROM healthy_expression JOIN stage ON healthy_expression.uberon_developmental_id = stage.id WHERE stage.name = 'late adult stage'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 229,
+    "db_id": "oncomx",
+    "question": "Show name of diseases where the A1BG gene expression is statistically significant",
+    "evidence": "",
+    "SQL": "SELECT disease.name FROM differential_expression JOIN disease ON differential_expression.doid = disease.id WHERE differential_expression.gene_symbol = 'A1BG' and differential_expression.statistical_significance = 'Yes'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 230,
+    "db_id": "oncomx",
+    "question": "Show name of diseases where the gene expression with symbol A1BG has a statistical significance of 'Yes'",
+    "evidence": "",
+    "SQL": "SELECT disease.name FROM differential_expression JOIN disease ON differential_expression.doid = disease.id WHERE differential_expression.gene_symbol = 'A1BG' and differential_expression.statistical_significance = 'Yes'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 231,
+    "db_id": "oncomx",
+    "question": "Show me the description of all biomarkers",
+    "evidence": "",
+    "SQL": "SELECT biomarker_description FROM biomarker",
+    "difficulty": ""
+  },
+  {
+    "question_id": 232,
+    "db_id": "oncomx",
+    "question": "Show the gene symbol and the description of cancer biomarkers which are not in a panel",
+    "evidence": "",
+    "SQL": "SELECT biomarker.gene_symbol, biomarker_description FROM biomarker WHERE test_is_a_panel = 'false'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 233,
+    "db_id": "oncomx",
+    "question": "What is the test trade name for FDA tests which are actually used for predisposition?",
+    "evidence": "",
+    "SQL": "SELECT test_trade_name FROM biomarker_fda_test_use WHERE actual_use = 'predisposition'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 234,
+    "db_id": "oncomx",
+    "question": "Show me the gene symbol of biomarkers",
+    "evidence": "",
+    "SQL": "SELECT gene_symbol FROM biomarker",
+    "difficulty": ""
+  },
+  {
+    "question_id": 235,
+    "db_id": "oncomx",
+    "question": "Show me all biomarkers on the EDRN platform with type protein in phase two.",
+    "evidence": "",
+    "SQL": "SELECT biomarker_title FROM biomarker_edrn WHERE biomarker_type = 'Protein' AND phase = 'Two'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 236,
+    "db_id": "oncomx",
+    "question": "Show me the title of all biomarkers on the EDRN platform with biomarker type Protein in phase Two.",
+    "evidence": "",
+    "SQL": "SELECT biomarker_title FROM biomarker_edrn WHERE biomarker_type = 'Protein' AND phase = 'Two'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 237,
+    "db_id": "oncomx",
+    "question": "Get the biomarker gene symbol and biomarker description for disease with name 'breast cancer'",
+    "evidence": "",
+    "SQL": "SELECT biomarker.gene_symbol, biomarker.biomarker_description FROM biomarker JOIN biomarker_fda on biomarker.id = biomarker_fda.id JOIN biomarker_fda_test ON biomarker_fda.test_submission = biomarker_fda_test.test_submission and biomarker_fda.test_trade_name = biomarker_fda_test.test_trade_name JOIN disease ON disease.id = biomarker_fda_test.doid WHERE disease.name = 'breast cancer'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 238,
+    "db_id": "oncomx",
+    "question": "Get all distinct biomarker EDRN phases",
+    "evidence": "",
+    "SQL": "SELECT DISTINCT phase from biomarker_edrn",
+    "difficulty": ""
+  },
+  {
+    "question_id": 239,
+    "db_id": "oncomx",
+    "question": "Show the pvalue of differential expression of lung cancer",
+    "evidence": "",
+    "SQL": "SELECT differential_expression.pvalue FROM differential_expression JOIN disease ON differential_expression.doid = disease.id WHERE disease.name = 'lung cancer'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 240,
+    "db_id": "oncomx",
+    "question": "How many genes are there for species Homo?",
+    "evidence": "",
+    "SQL": "SELECT count(*) FROM xref_gene_ensembl JOIN species ON xref_gene_ensembl.speciesid = species.speciesid WHERE species.genus = 'Homo'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 241,
+    "db_id": "oncomx",
+    "question": "How many genes ensembles are there for species with genus Homo?",
+    "evidence": "",
+    "SQL": "SELECT count(*) FROM xref_gene_ensembl JOIN species ON xref_gene_ensembl.speciesid = species.speciesid WHERE species.genus = 'Homo'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 242,
+    "db_id": "oncomx",
+    "question": "Show tests built by a manufacturer starting with 'Roche' ",
+    "evidence": "",
+    "SQL": "SELECT * FROM biomarker_fda_test WHERE test_manufacturer like 'Roche%'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 243,
+    "db_id": "oncomx",
+    "question": "Show submissions of biomarker FDA tests from test manufacturer starting with 'Roche' ",
+    "evidence": "",
+    "SQL": "SELECT test_submission FROM biomarker_fda_test WHERE test_manufacturer like 'Roche%'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 244,
+    "db_id": "oncomx",
+    "question": "Which diseases (name) have a mutation with a coding sequence position of 102997?",
+    "evidence": "",
+    "SQL": "SELECT disease.name FROM disease JOIN disease_mutation ON disease.id = disease_mutation.doid WHERE disease_mutation.cds_pos = 102997",
+    "difficulty": ""
+  },
+  {
+    "question_id": 245,
+    "db_id": "oncomx",
+    "question": "Show me all diseases having a mutation with a coding sequence position (cds_pos) of 102997?",
+    "evidence": "",
+    "SQL": "SELECT disease.name FROM disease JOIN disease_mutation ON disease.id = disease_mutation.doid WHERE disease_mutation.cds_pos = 102997",
+    "difficulty": ""
+  },
+  {
+    "question_id": 246,
+    "db_id": "oncomx",
+    "question": "Show me all gene symbols expressed with a pvalue between 0.39 and 0.41",
+    "evidence": "",
+    "SQL": "SELECT gene_symbol FROM differential_expression WHERE pvalue > 0.39 AND pvalue < 0.41",
+    "difficulty": ""
+  },
+  {
+    "question_id": 247,
+    "db_id": "oncomx",
+    "question": "Get all gene symbols from expressions with a p-value between 0.39 and 0.41",
+    "evidence": "",
+    "SQL": "SELECT gene_symbol FROM differential_expression WHERE pvalue > 0.39 AND pvalue < 0.41",
+    "difficulty": ""
+  },
+  {
+    "question_id": 248,
+    "db_id": "oncomx",
+    "question": "Show the distinct chromosome id's in mutations of breast cancer",
+    "evidence": "",
+    "SQL": "SELECT DISTINCT disease_mutation.chromosome_id FROM disease_mutation JOIN disease ON disease_mutation.doid = disease.id WHERE disease.name = 'breast cancer'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 249,
+    "db_id": "oncomx",
+    "question": "Show the different chromosome id's in mutations of disease 'breast cancer'",
+    "evidence": "",
+    "SQL": "SELECT DISTINCT disease_mutation.chromosome_id FROM disease_mutation JOIN disease ON disease_mutation.doid = disease.id WHERE disease.name = 'breast cancer'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 250,
+    "db_id": "oncomx",
+    "question": "Show me the names of all anatomical entities which have a healthy expression with relative gene expression level LOW and a relative anatomical expression level of HIGH",
+    "evidence": "",
+    "SQL": "SELECT anatomical_entity.name FROM anatomical_entity JOIN healthy_expression ON anatomical_entity.id = healthy_expression.uberon_anatomical_id WHERE expression_level_gene_relative = 'LOW' AND expression_level_anatomical_relative = 'HIGH'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 251,
+    "db_id": "oncomx",
+    "question": "List the names of anatomical entities having an expression with relative gene expression level LOW and a relative anatomical expression level of HIGH",
+    "evidence": "",
+    "SQL": "SELECT anatomical_entity.name FROM anatomical_entity JOIN healthy_expression ON anatomical_entity.id = healthy_expression.uberon_anatomical_id WHERE expression_level_gene_relative = 'LOW' AND expression_level_anatomical_relative = 'HIGH'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 252,
+    "db_id": "oncomx",
+    "question": "Get the name of all anatomical entities starting with 'bone'",
+    "evidence": "",
+    "SQL": "SELECT name FROM anatomical_entity WHERE name LIKE 'bone%'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 253,
+    "db_id": "oncomx",
+    "question": "What is the common name for species with genus Mus?",
+    "evidence": "",
+    "SQL": "SELECT speciescommonname FROM species WHERE genus = 'Mus'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 254,
+    "db_id": "oncomx",
+    "question": "What are the name of diseases where the expression of gene with symbol A1BG is up regulated (expression change direction)",
+    "evidence": "",
+    "SQL": "SELECT disease.name FROM differential_expression JOIN disease ON differential_expression.doid = disease.id WHERE differential_expression.gene_symbol = 'A1BG' and differential_expression.expression_change_direction = 'up'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 255,
+    "db_id": "oncomx",
+    "question": "How many healthy expression are there for stage name starting with 'late adult'?",
+    "evidence": "",
+    "SQL": "SELECT COUNT(*) FROM healthy_expression JOIN stage ON healthy_expression.uberon_developmental_id = stage.id WHERE stage.name LIKE 'late adult%'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 256,
+    "db_id": "oncomx",
+    "question": "Show number of fda test trials with test manufacturer 'ABBOTT MOLECULAR INC'",
+    "evidence": "",
+    "SQL": "SELECT count(*) FROM biomarker_fda_test JOIN biomarker_fda_test_trial ON biomarker_fda_test.test_submission = biomarker_fda_test_trial.test_submission and biomarker_fda_test.test_trade_name = biomarker_fda_test_trial.test_trade_name WHERE test_manufacturer = 'ABBOTT MOLECULAR INC'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 257,
+    "db_id": "oncomx",
+    "question": "What is the test trade name for FDA tests where actual use is 'predisposition'?",
+    "evidence": "",
+    "SQL": "SELECT test_trade_name FROM biomarker_fda_test_use WHERE actual_use = 'predisposition'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 258,
+    "db_id": "oncomx",
+    "question": "Show all symbols of genes expressed in the disease 'lung cancer'",
+    "evidence": "",
+    "SQL": "SELECT differential_expression.gene_symbol FROM differential_expression JOIN disease ON differential_expression.doid = disease.id WHERE disease.name = 'lung cancer'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 259,
+    "db_id": "oncomx",
+    "question": "Show me the platform method an the study design for FDA tests from manufacturer 'Dako Denmark A/S'",
+    "evidence": "",
+    "SQL": "SELECT platform_method, test_study_design FROM biomarker_fda_test WHERE test_manufacturer = 'Dako Denmark A/S'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 260,
+    "db_id": "oncomx",
+    "question": "Show me the description for FDA approved biomarkers with test approval status 'class II'",
+    "evidence": "",
+    "SQL": "SELECT biomarker.biomarker_description FROM biomarker JOIN biomarker_fda ON biomarker.id = biomarker_fda.id JOIN biomarker_fda_test on biomarker_fda.test_submission = biomarker_fda_test.test_submission WHERE biomarker_fda_test.test_approval_status = 'class II'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 261,
+    "db_id": "oncomx",
+    "question": "List the descriptions of biomarkers for fda tests with approval status 'class II'",
+    "evidence": "",
+    "SQL": "SELECT biomarker.biomarker_description FROM biomarker JOIN biomarker_fda ON biomarker.id = biomarker_fda.id JOIN biomarker_fda_test on biomarker_fda.test_submission = biomarker_fda_test.test_submission WHERE biomarker_fda_test.test_approval_status = 'class II'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 262,
+    "db_id": "oncomx",
+    "question": "Return all information from healthy expressions which have an expression score above the average.",
+    "evidence": "",
+    "SQL": "SELECT * FROM healthy_expression WHERE expression_score > (SELECT AVG(expression_score) FROM healthy_expression)",
+    "difficulty": ""
+  },
+  {
+    "question_id": 263,
+    "db_id": "oncomx",
+    "question": "Return all expressions which have an expression score higher than the average expression score.",
+    "evidence": "",
+    "SQL": "SELECT * FROM healthy_expression WHERE expression_score > (SELECT AVG(expression_score) FROM healthy_expression)",
+    "difficulty": ""
+  },
+  {
+    "question_id": 264,
+    "db_id": "oncomx",
+    "question": "What are the symbols for biomarkers with type genomic for anatomical entity breast?",
+    "evidence": "",
+    "SQL": "SELECT gene_symbol FROM biomarker JOIN biomarker_edrn ON biomarker.id = biomarker_edrn.id JOIN anatomical_entity ON biomarker_edrn.uberon_anatomical_id = anatomical_entity.id WHERE anatomical_entity.name = 'breast' and biomarker_edrn.biomarker_type = 'Genomic'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 265,
+    "db_id": "oncomx",
+    "question": "What are the symbols for biomarkers on the EDRN platform with biomarker type Genomic for anatomical entity 'breast'?",
+    "evidence": "",
+    "SQL": "SELECT gene_symbol FROM biomarker JOIN biomarker_edrn ON biomarker.id = biomarker_edrn.id JOIN anatomical_entity ON biomarker_edrn.uberon_anatomical_id = anatomical_entity.id WHERE anatomical_entity.name = 'breast' and biomarker_edrn.biomarker_type = 'Genomic'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 266,
+    "db_id": "oncomx",
+    "question": "What disease can occur in the liver?",
+    "evidence": "",
+    "SQL": "SELECT disease.name FROM anatomical_entity JOIN cancer_tissue ON anatomical_entity.id = cancer_tissue.uberon_anatomical_id JOIN disease ON cancer_tissue.doid = disease.id WHERE anatomical_entity.name = 'liver'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 267,
+    "db_id": "oncomx",
+    "question": "List the name of diseases that can occur in the anatomical entity 'liver'",
+    "evidence": "",
+    "SQL": "SELECT disease.name FROM anatomical_entity JOIN cancer_tissue ON anatomical_entity.id = cancer_tissue.uberon_anatomical_id JOIN disease ON cancer_tissue.doid = disease.id WHERE anatomical_entity.name = 'liver'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 268,
+    "db_id": "oncomx",
+    "question": "Show distinct manufacturer of tests for gene BRAF ",
+    "evidence": "",
+    "SQL": "SELECT DISTINCT biomarker_fda_test.test_manufacturer FROM biomarker JOIN biomarker_fda on biomarker.id = biomarker_fda.id JOIN biomarker_fda_test ON biomarker_fda.test_trade_name = biomarker_fda_test.test_trade_name AND biomarker_fda.test_submission = biomarker_fda_test.test_submission WHERE biomarker.gene_symbol = 'BRAF'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 269,
+    "db_id": "oncomx",
+    "question": "Show all FDA test manufacturer for biomarkers of gene BRAF ",
+    "evidence": "",
+    "SQL": "SELECT biomarker_fda_test.test_manufacturer FROM biomarker JOIN biomarker_fda on biomarker.id = biomarker_fda.id JOIN biomarker_fda_test ON biomarker_fda.test_trade_name = biomarker_fda_test.test_trade_name AND biomarker_fda.test_submission = biomarker_fda_test.test_submission WHERE biomarker.gene_symbol = 'BRAF'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 270,
+    "db_id": "oncomx",
+    "question": "Show me the name of anatomical entities and species for all species",
+    "evidence": "",
+    "SQL": "SELECT anatomical_entity.name, species.speciescommonname FROM anatomical_entity JOIN healthy_expression ON anatomical_entity.id = healthy_expression.uberon_anatomical_id JOIN xref_gene_ensembl ON healthy_expression.ensembl_gene_id = xref_gene_ensembl.ensembl_gene_id JOIN species ON xref_gene_ensembl.speciesid = species.speciesid",
+    "difficulty": ""
+  },
+  {
+    "question_id": 271,
+    "db_id": "oncomx",
+    "question": "What are the distinct healthy organs where the gene A1BG is expressed.",
+    "evidence": "",
+    "SQL": "SELECT distinct anatomical_entity.name FROM healthy_expression JOIN xref_gene_ensembl ON healthy_expression.ensembl_gene_id = xref_gene_ensembl.ensembl_gene_id JOIN anatomical_entity ON healthy_expression.uberon_anatomical_id = anatomical_entity.id WHERE xref_gene_ensembl.gene_symbol = 'A1BG' and healthy_expression.expression_level_anatomical_relative != 'ABSENT'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 272,
+    "db_id": "oncomx",
+    "question": "Give me symbol and description of biomarkers related to breast at the EDRN phase one",
+    "evidence": "",
+    "SQL": "SELECT biomarker.gene_symbol, biomarker.biomarker_description FROM biomarker JOIN biomarker_edrn ON biomarker.id = biomarker_edrn.id JOIN anatomical_entity ON biomarker_edrn.uberon_anatomical_id = anatomical_entity.id WHERE anatomical_entity.name = 'breast' and biomarker_edrn.phase = 'One'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 273,
+    "db_id": "oncomx",
+    "question": "Show me the name of the anatomical entity and the expression score of where either gene ENSMUSG00000000037 or gene ENSMUSG00000000078 is expressed in.",
+    "evidence": "",
+    "SQL": "SELECT anatomical_entity.name, healthy_expression.expression_score FROM healthy_expression JOIN anatomical_entity ON healthy_expression.uberon_anatomical_id = anatomical_entity.id WHERE healthy_expression.ensembl_gene_id = 'ENSMUSG00000000037' OR healthy_expression.ensembl_gene_id = 'ENSMUSG00000000078'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 274,
+    "db_id": "oncomx",
+    "question": "What's the NCIt term for biomarker with symbol ALDH4A1?",
+    "evidence": "",
+    "SQL": "SELECT biomarker_fda_ncit_term.ncit_biomarker FROM biomarker_fda_ncit_term JOIN biomarker_fda ON biomarker_fda_ncit_term.biomarker_fda_id = biomarker_fda.id JOIN biomarker ON biomarker_fda.id = biomarker.id WHERE biomarker.gene_symbol = 'ALDH4A1'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 275,
+    "db_id": "oncomx",
+    "question": "Show all information about disease mutations of the anatomical entity liver",
+    "evidence": "",
+    "SQL": "SELECT * FROM disease_mutation JOIN disease_mutation_tissue ON disease_mutation.id = disease_mutation_tissue.disease_mutation_id JOIN anatomical_entity ON disease_mutation_tissue.uberon_anatomical_id = anatomical_entity.id WHERE anatomical_entity.name = 'liver'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 276,
+    "db_id": "oncomx",
+    "question": "List all disease mutations which belong to anatomical entity liver.",
+    "evidence": "",
+    "SQL": "SELECT * FROM anatomical_entity JOIN disease_mutation_tissue ON anatomical_entity.id = disease_mutation_tissue.uberon_anatomical_id JOIN disease_mutation ON disease_mutation_tissue.disease_mutation_id = disease_mutation.id where anatomical_entity.name = 'liver'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 277,
+    "db_id": "oncomx",
+    "question": "Show me the gene symbol of biomarkers that have an approval status of 'PMP' from the FDA",
+    "evidence": "",
+    "SQL": "SELECT gene_symbol FROM biomarker JOIN biomarker_fda ON biomarker.id = biomarker_fda.id JOIN biomarker_fda_test ON biomarker_fda.test_submission = biomarker_fda_test.test_submission WHERE biomarker_fda_test.test_approval_status = 'PMP'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 278,
+    "db_id": "oncomx",
+    "question": "What are the desctiptions of biomarkers related to breast cancer?",
+    "evidence": "",
+    "SQL": "SELECT biomarker.biomarker_description FROM biomarker JOIN biomarker_edrn ON biomarker.id = biomarker_edrn.id JOIN anatomical_entity ON biomarker_edrn.uberon_anatomical_id = anatomical_entity.id WHERE anatomical_entity.name = 'breast'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 279,
+    "db_id": "oncomx",
+    "question": "How many biomarkers are associated with each anatomical entity?",
+    "evidence": "",
+    "SQL": "SELECT anatomical_entity.name, COUNT(*) FROM biomarker JOIN biomarker_edrn ON biomarker.id = biomarker_edrn.id JOIN anatomical_entity ON biomarker_edrn.uberon_anatomical_id = anatomical_entity.id GROUP BY anatomical_entity.name",
+    "difficulty": ""
+  },
+  {
+    "question_id": 280,
+    "db_id": "oncomx",
+    "question": "Show me all information about disease mutations with ref_aa equal to F",
+    "evidence": "",
+    "SQL": "SELECT * FROM disease_mutation WHERE ref_aa = 'F'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 281,
+    "db_id": "oncomx",
+    "question": "Show all information about diseases which contain cancer in the name",
+    "evidence": "",
+    "SQL": "SELECT name FROM disease WHERE name like '%cancer%'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 282,
+    "db_id": "oncomx",
+    "question": "Show distinct manufacturer of diagnostic tests for gene BRAF ",
+    "evidence": "",
+    "SQL": "SELECT distinct(biomarker_fda_test.test_manufacturer), biomarker_fda_test_use.actual_use FROM biomarker JOIN biomarker_fda on biomarker.id = biomarker_fda.id JOIN biomarker_fda_test ON biomarker_fda.test_trade_name = biomarker_fda_test.test_trade_name AND biomarker_fda.test_submission = biomarker_fda_test.test_submission JOIN biomarker_fda_test_use ON biomarker_fda_test.test_submission = biomarker_fda_test_use.test_submission and biomarker_fda_test.test_trade_name = biomarker_fda_test_use.test_trade_name WHERE biomarker.gene_symbol = 'BRAF' AND biomarker_fda_test_use.actual_use = 'diagnostic'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 283,
+    "db_id": "oncomx",
+    "question": "Show cancer biomarker panels ",
+    "evidence": "",
+    "SQL": "SELECT * FROM biomarker JOIN biomarker_edrn ON biomarker.id = biomarker_edrn.id JOIN biomarker_fda on biomarker.id = biomarker_fda.id JOIN biomarker_fda_test ON biomarker_fda.test_submission = biomarker_fda_test.test_submission and biomarker_fda.test_trade_name = biomarker_fda_test.test_trade_name LEFT JOIN anatomical_entity ON anatomical_entity.id = biomarker_edrn.uberon_anatomical_id JOIN cancer_tissue ON cancer_tissue.uberon_anatomical_id = anatomical_entity.id JOIN disease ON disease.id = biomarker_fda_test.doid or disease.id = cancer_tissue.doid WHERE biomarker.test_is_a_panel = 'true' AND biomarker.gene_symbol != 'NULL'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 284,
+    "db_id": "oncomx",
+    "question": "Show name of biomarkers with tests from 23andMe",
+    "evidence": "",
+    "SQL": "select * from biomarker as b join biomarker_fda as bf on b.id = bf.id join biomarker_fda_test as bft on bf.test_trade_name = bft.test_trade_name and bf.test_submission = bft.test_submission where test_manufacturer like '23andMe'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 285,
+    "db_id": "oncomx",
+    "question": "Show the name of all manufacturer producing tests for breast cancer biomarkers",
+    "evidence": "",
+    "SQL": "select distinct bft.test_manufacturer from biomarker as b join biomarker_fda as bf on b.id = bf.id join biomarker_fda_test as bft on bf.test_trade_name = bft.test_trade_name and bf.test_submission = bft.test_submission where b.gene_symbol like '%BRCA%'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 286,
+    "db_id": "oncomx",
+    "question": "Show all approved tests for breast cancer biomarkers",
+    "evidence": "",
+    "SQL": "select * from biomarker as b join biomarker_fda as bf on b.id = bf.id join biomarker_fda_test as bft on bf.test_trade_name = bft.test_trade_name and bf.test_submission = bft.test_submission join biomarker_fda_test_use as bfu on bfu.test_trade_name = bft.test_trade_name and bfu.test_submission = bft.test_submission where b.gene_symbol like '%BRCA%'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 287,
+    "db_id": "oncomx",
+    "question": "Return the anatomical entity associated with the most biomarkers",
+    "evidence": "",
+    "SQL": "SELECT anatomical_entity.name FROM biomarker JOIN biomarker_edrn ON biomarker.id = biomarker_edrn.id JOIN anatomical_entity ON biomarker_edrn.uberon_anatomical_id = anatomical_entity.id GROUP BY anatomical_entity.name ORDER BY COUNT(*) DESC LIMIT 1",
+    "difficulty": ""
+  },
+  {
+    "question_id": 288,
+    "db_id": "oncomx",
+    "question": "what are the top chromosomes with more reported mutations from cosmic data source",
+    "evidence": "",
+    "SQL": "SELECT chromosome_id, count(*) FROM disease_mutation where data_source = 'cosmic' group by chromosome_id order by count(*) desc limit 5",
+    "difficulty": ""
+  },
+  {
+    "question_id": 289,
+    "db_id": "oncomx",
+    "question": "top 3 cancer types with more differential expression entries ",
+    "evidence": "",
+    "SQL": "select d.name , count(*) from differential_expression JOIN disease as d ON d.id = doid group by d.name order by count(*) desc limit 3",
+    "difficulty": ""
+  },
+  {
+    "question_id": 290,
+    "db_id": "oncomx",
+    "question": "Find all of the edrn biomarkers that have never been approved by the FDA ",
+    "evidence": "",
+    "SQL": "SELECT t1.id from biomarker as t1 join biomarker_edrn as t2 on t1.id = t2.id WHERE t1.id NOT IN (SELECT t1.id from biomarker as t1 join biomarker_fda as t2 on t1.id = t2.id join biomarker_fda_test_use as bftu on t2.test_submission = bftu.test_submission)",
+    "difficulty": ""
+  },
+  {
+    "question_id": 291,
+    "db_id": "oncomx",
+    "question": "Show all of the edrn biomarkers that have been approved by the FDA ",
+    "evidence": "",
+    "SQL": "SELECT t1.id from biomarker as t1 join biomarker_edrn as t2 on t1.id = t2.id WHERE t1.id IN (SELECT t1.id from biomarker as t1 join biomarker_fda as t2 on t1.id = t2.id join biomarker_fda_test_use as bftu on t2.test_submission = bftu.test_submission)",
+    "difficulty": ""
+  },
+  {
+    "question_id": 292,
+    "db_id": "oncomx",
+    "question": "which cosmic data source reported the most mutations for each chromosome?",
+    "evidence": "",
+    "SQL": "SELECT chromosome_id, count(*) FROM disease_mutation where data_source = 'cosmic' group by chromosome_id order by count(*) desc limit 5",
+    "difficulty": ""
+  },
+  {
+    "question_id": 293,
+    "db_id": "oncomx",
+    "question": "show me all the genes that relate to biomarkers of prostate cancer.",
+    "evidence": "",
+    "SQL": "select biomarker.gene_symbol from disease as dis join biomarker_fda_test as fda on dis.id = fda.doid join biomarker_fda as bio_fda on bio_fda.test_trade_name = fda.test_trade_name join biomarker as bio on bio.id = biomarker_fda.id where dis.name = \"prostate cancer\"",
+    "difficulty": ""
+  },
+  {
+    "question_id": 294,
+    "db_id": "oncomx",
+    "question": "How many fda test have been executed for each biomarker for each test use?",
+    "evidence": "",
+    "SQL": "select bio.biomarker_description , test_use.actual_use, count(*) from biomarker_edrn as edrn join anatomical_entity as anat_ent on edrn.uberon_anatomical_id = anat_ent.id join biomarker as bio on bio.id = edrn.id join biomarker_fda as bio_fda on bio_fda.id = bio.id join biomarker_fda_test as fda_test on bio_fda.test_trade_name = fda_test.test_trade_name join biomarker_fda_test_use as test_use on test_use.test_trade_name = fda_test.test_trade_name GROUP BY test_use.actual_use, bio.biomarker_description",
+    "difficulty": ""
+  },
+  {
+    "question_id": 295,
+    "db_id": "oncomx",
+    "question": "What are the test names that have been approved by the FDA for diagnosis",
+    "evidence": "",
+    "SQL": "SELECT distinct(bft.test_trade_name) FROM biomarker_fda_test_use as bftu JOIN biomarker_fda_test as bft ON bft.test_trade_name = bftu.test_trade_name AND bft.test_submission = bftu.test_submission WHERE bftu.approved_indication LIKE '%diagnosis%'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 296,
+    "db_id": "oncomx",
+    "question": "Who manufactures lung cancer prognosis tests that are approved by the FDA?",
+    "evidence": "",
+    "SQL": "SELECT distinct(d.name), bft.test_trade_name, bft.test_manufacturer FROM biomarker_fda_test_use as bftu JOIN biomarker_fda_test as bft ON bft.test_trade_name = bftu.test_trade_name AND bft.test_submission = bftu.test_submission JOIN biomarker_fda as bf ON bft.test_trade_name = bf.test_trade_name AND bft.test_submission = bf.test_submission JOIN biomarker as b ON bf.id = b.id JOIN disease AS d ON d.id = bft.doid WHERE bftu.approved_indication LIKE '%prognosis%' AND d.name LIKE '%lung%'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 297,
+    "db_id": "oncomx",
+    "question": "Which diseases can be diagnosed with a blood test?",
+    "evidence": "",
+    "SQL": "SELECT distinct(d.name) FROM biomarker_fda_test_use as bftu JOIN biomarker_fda_test as bft ON bft.test_trade_name = bftu.test_trade_name AND bft.test_submission = bftu.test_submission JOIN biomarker_fda as bf ON bft.test_trade_name = bf.test_trade_name AND bft.test_submission = bf.test_submission JOIN biomarker as b ON bf.id = b.id JOIN disease AS d ON d.id = bft.doid WHERE bftu.approved_indication LIKE '%diagnosis%' AND bft.specimen_type LIKE 'blood'",
+    "difficulty": ""
+  },
+  {
+    "question_id": 298,
+    "db_id": "oncomx",
+    "question": "Show all the information about biomarkers and the species for which they are healthy expressed",
+    "evidence": "",
+    "SQL": "select bio.biomarker_description, species.species from biomarker as bio join biomarker_edrn as be on bio.id = be.id join anatomical_entity as ae on be.uberon_anatomical_id = ae.id join healthy_expression as he on ae.id = he.uberon_anatomical_id join xref_gene_ensembl as xge on he.ensembl_gene_id = xge.ensembl_gene_id join species as s on xge.speciesid = s.speciesid",
+    "difficulty": ""
+  }
+]

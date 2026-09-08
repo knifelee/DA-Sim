@@ -1,0 +1,10 @@
+original_column_name,column_name,column_description,data_format,value_description
+id,,,INTEGER,
+card_id,,,INTEGER,
+winner_id,,,TEXT,
+win_type,,,TEXT,
+loser_id,,,TEXT,
+match_type_id,,,TEXT,
+duration,,,TEXT,
+title_id,,,TEXT,
+title_change,,,INTEGER,

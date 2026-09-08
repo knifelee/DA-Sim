@@ -1,0 +1,9 @@
+original_column_name,column_name,column_description,data_format,value_description
+ticker,,,TEXT,
+market_date,,,TEXT,
+price,,,REAL,
+open,,,REAL,
+high,,,REAL,
+low,,,REAL,
+volume,,,TEXT,
+change,,,TEXT,

@@ -1,0 +1,9 @@
+original_column_name,column_name,column_description,data_format,value_description
+_month,,,REAL,
+_year,,,REAL,
+month_year,,,TEXT,
+interest_id,,,REAL,
+composition,,,REAL,
+index_value,,,REAL,
+ranking,,,INTEGER,
+percentile_ranking,,,REAL,

@@ -1,0 +1,10 @@
+original_column_name,column_name,column_description,data_format,value_description
+player_id,,,TEXT,
+yearid,,,INTEGER,
+votedby,,,TEXT,
+ballots,,,NUMERIC,
+needed,,,NUMERIC,
+votes,,,NUMERIC,
+inducted,,,TEXT,
+category,,,TEXT,
+needed_note,,,TEXT,

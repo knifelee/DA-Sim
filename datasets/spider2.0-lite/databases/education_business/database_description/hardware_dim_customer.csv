@@ -1,0 +1,8 @@
+original_column_name,column_name,column_description,data_format,value_description
+customer_code,,,INTEGER,
+customer,,,TEXT,
+platform,,,TEXT,
+channel,,,TEXT,
+market,,,TEXT,
+sub_zone,,,TEXT,
+region,,,TEXT,

@@ -1,0 +1,209 @@
+[
+  {
+    "question_id": 0,
+    "db_id": "E_commerce",
+    "question": "Could you tell me the number of orders, average payment per order and customer lifespan in weeks of the 3 custumers with the highest average payment per order, where the lifespan is calculated by subtracting the earliest purchase date from the latest purchase date in days, dividing by seven, and if the result is less than seven days, setting it to 1.0?",
+    "evidence": "",
+    "SQL": "WITH CustomerData AS ( SELECT customer_unique_id, COUNT(DISTINCT orders.order_id) AS order_count, SUM(payment_value) AS total_payment, JULIANDAY(MIN(order_purchase_timestamp)) AS first_order_day, JULIANDAY(MAX(order_purchase_timestamp)) AS last_order_day FROM customers JOIN orders USING (customer_id) JOIN order_payments USING (order_id) GROUP BY customer_unique_id ) SELECT customer_unique_id, order_count AS PF, ROUND(total_payment / order_count, 2) AS AOV, CASE WHEN (last_order_day - first_order_day) < 7 THEN 1 ELSE (last_order_day - first_order_day) / 7 END AS ACL FROM CustomerData ORDER BY AOV DESC LIMIT 3",
+    "difficulty": "",
+    "source_instance_id": "local004"
+  },
+  {
+    "question_id": 1,
+    "db_id": "Baseball",
+    "question": "I would like to know the given names of baseball players who have achieved the highest value of games played, runs, hits, and home runs, with their corresponding score values.",
+    "evidence": "",
+    "SQL": "WITH player_stats AS ( SELECT b.player_id, p.name_given AS player_name, SUM(b.g) AS games_played, SUM(b.r) AS runs, SUM(b.h) AS hits, SUM(b.hr) AS home_runs FROM player p JOIN batting b ON p.player_id = b.player_id GROUP BY b.player_id, p.name_given ) SELECT 'Games Played' AS Category, player_name AS Player_Name, games_played AS Batting_Table_Topper FROM player_stats WHERE games_played = (SELECT MAX(games_played) FROM player_stats) UNION ALL SELECT 'Runs' AS Category, player_name AS Player_Name, runs AS Batting_Table_Topper FROM player_stats WHERE runs = (SELECT MAX(runs) FROM player_stats) UNION ALL SELECT 'Hits' AS Category, player_name AS Player_Name, hits AS Batting_Table_Topper FROM player_stats WHERE hits = (SELECT MAX(hits) FROM player_stats) UNION ALL SELECT 'Home Runs' AS Category, player_name AS Player_Name, home_runs AS Batting_Table_Topper FROM player_stats WHERE home_runs = (SELECT MAX(home_runs) FROM player_stats);",
+    "difficulty": "",
+    "source_instance_id": "local008"
+  },
+  {
+    "question_id": 2,
+    "db_id": "California_Traffic_Collision",
+    "question": "In which year were the two most common causes of traffic accidents different from those in other years?",
+    "evidence": "",
+    "SQL": "WITH AnnualTotals AS ( SELECT STRFTIME('%Y', collision_date) AS Year, COUNT(case_id) AS AnnualTotal FROM collisions GROUP BY Year ), CategoryTotals AS ( SELECT STRFTIME('%Y', collision_date) AS Year, pcf_violation_category AS Category, COUNT(case_id) AS Subtotal FROM collisions GROUP BY Year, Category ), CategoryPercentages AS ( SELECT ct.Year, ct.Category, ROUND((ct.Subtotal * 100.0) / at.AnnualTotal, 1) AS PercentageOfAnnualRoadIncidents FROM CategoryTotals ct JOIN AnnualTotals at ON ct.Year = at.Year ), RankedCategories AS ( SELECT Year, Category, PercentageOfAnnualRoadIncidents, ROW_NUMBER() OVER (PARTITION BY Year ORDER BY PercentageOfAnnualRoadIncidents DESC) AS Rank FROM CategoryPercentages ), TopTwoCategories AS ( SELECT Year, GROUP_CONCAT(Category, ', ') AS TopCategories FROM RankedCategories WHERE Rank <= 2 GROUP BY Year ), UniqueYear AS ( SELECT Year FROM TopTwoCategories GROUP BY TopCategories HAVING COUNT(Year) = 1 ), results AS ( SELECT rc.Year, rc.Category, rc.PercentageOfAnnualRoadIncidents FROM UniqueYear u JOIN RankedCategories rc ON u.Year = rc.Year WHERE rc.Rank <= 2 ) SELECT distinct Year FROM results",
+    "difficulty": "",
+    "source_instance_id": "local017"
+  },
+  {
+    "question_id": 3,
+    "db_id": "WWE",
+    "question": "For the NXT title that had the shortest match (excluding titles with \"title change\"), what were the names of the two wrestlers involved?",
+    "evidence": "",
+    "SQL": "WITH MatchDetails AS ( SELECT b.name AS titles, m.duration AS match_duration, w1.name || ' vs ' || w2.name AS matches, m.win_type AS win_type, l.name AS location, e.name AS event, ROW_NUMBER() OVER (PARTITION BY b.name ORDER BY m.duration ASC) AS rank FROM Belts b INNER JOIN Matches m ON m.title_id = b.id INNER JOIN Wrestlers w1 ON w1.id = m.winner_id INNER JOIN Wrestlers w2 ON w2.id = m.loser_id INNER JOIN Cards c ON c.id = m.card_id INNER JOIN Locations l ON l.id = c.location_id INNER JOIN Events e ON e.id = c.event_id INNER JOIN Promotions p ON p.id = c.promotion_id WHERE p.name = 'NXT' AND m.duration <> '' AND b.name <> '' AND b.name NOT IN ( SELECT name FROM Belts WHERE name LIKE '%title change%' ) ), Rank1 AS ( SELECT titles, match_duration, matches, win_type, location, event FROM MatchDetails WHERE rank = 1 ) SELECT SUBSTR(matches, 1, INSTR(matches, ' vs ') - 1) AS wrestler1, SUBSTR(matches, INSTR(matches, ' vs ') + 4) AS wrestler2 FROM Rank1 ORDER BY match_duration LIMIT 1",
+    "difficulty": "",
+    "source_instance_id": "local019"
+  },
+  {
+    "question_id": 4,
+    "db_id": "IPL",
+    "question": "Retrieve the names of players who scored no less than 100 runs in a match while playing for the team that lost that match.",
+    "evidence": "",
+    "SQL": "WITH player_runs AS ( SELECT bbb.striker AS player_id, bbb.match_id, SUM(bsc.runs_scored) AS total_runs FROM ball_by_ball AS bbb JOIN batsman_scored AS bsc ON bbb.match_id = bsc.match_id AND bbb.over_id = bsc.over_id AND bbb.ball_id = bsc.ball_id AND bbb.innings_no = bsc.innings_no GROUP BY bbb.striker, bbb.match_id HAVING SUM(bsc.runs_scored) >= 100 ), losing_teams AS ( SELECT match_id, CASE WHEN match_winner = team_1 THEN team_2 ELSE team_1 END AS loser FROM match ), players_in_losing_teams AS ( SELECT pr.player_id, pr.match_id FROM player_runs AS pr JOIN losing_teams AS lt ON pr.match_id = lt.match_id JOIN player_match AS pm ON pr.player_id = pm.player_id AND pr.match_id = pm.match_id AND lt.loser = pm.team_id ) SELECT DISTINCT p.player_name FROM player AS p JOIN players_in_losing_teams AS plt ON p.player_id = plt.player_id ORDER BY p.player_name;",
+    "difficulty": "",
+    "source_instance_id": "local022"
+  },
+  {
+    "question_id": 5,
+    "db_id": "IPL",
+    "question": "Please help me find the names of top 5 players with the highest average runs per match in season 5, along with their batting averages.",
+    "evidence": "",
+    "SQL": "WITH runs_scored AS ( SELECT bb.striker AS player_id, bb.match_id, bs.runs_scored AS runs FROM ball_by_ball AS bb JOIN batsman_scored AS bs ON bb.match_id = bs.match_id AND bb.over_id = bs.over_id AND bb.ball_id = bs.ball_id AND bb.innings_no = bs.innings_no WHERE bb.match_id IN (SELECT match_id FROM match WHERE season_id = 5) ), total_runs AS ( SELECT player_id, match_id, SUM(runs) AS total_runs FROM runs_scored GROUP BY player_id, match_id ), batting_averages AS ( SELECT player_id, SUM(total_runs) AS runs, COUNT(match_id) AS num_matches, ROUND(SUM(total_runs) / CAST(COUNT(match_id) AS FLOAT), 3) AS batting_avg FROM total_runs GROUP BY player_id ORDER BY batting_avg DESC LIMIT 5 ) SELECT p.player_name, b.batting_avg FROM player AS p JOIN batting_averages AS b ON p.player_id = b.player_id ORDER BY b.batting_avg DESC;",
+    "difficulty": "",
+    "source_instance_id": "local023"
+  },
+  {
+    "question_id": 6,
+    "db_id": "Brazilian_E_Commerce",
+    "question": "Please identify the top three customers, based on their customer_unique_id, who have the highest number of delivered orders, and provide the average payment value, city, and state for each of these customers.",
+    "evidence": "",
+    "SQL": "WITH customer_orders AS ( SELECT c.customer_unique_id, COUNT(o.order_id) AS Total_Orders_By_Customers, AVG(p.payment_value) AS Average_Payment_By_Customer, c.customer_city, c.customer_state FROM olist_customers c JOIN olist_orders o ON c.customer_id = o.customer_id JOIN olist_order_payments p ON o.order_id = p.order_id WHERE o.order_status = 'delivered' GROUP BY c.customer_unique_id, c.customer_city, c.customer_state ) SELECT Average_Payment_By_Customer, customer_city, customer_state FROM customer_orders ORDER BY Total_Orders_By_Customers DESC LIMIT 3;",
+    "difficulty": "",
+    "source_instance_id": "local029"
+  },
+  {
+    "question_id": 7,
+    "db_id": "Pagila",
+    "question": "Could you help me determine which actor starred most frequently in English-language children's category films that were rated either G or PG, had a running time of 120 minutes or less, and were released between 2000 and 2010? Please provide the actor's full name.",
+    "evidence": "",
+    "SQL": "SELECT actor.first_name || ' ' || actor.last_name AS full_name FROM actor INNER JOIN film_actor ON actor.actor_id = film_actor.actor_id INNER JOIN film ON film_actor.film_id = film.film_id INNER JOIN film_category ON film.film_id = film_category.film_id INNER JOIN category ON film_category.category_id = category.category_id INNER JOIN language ON film.language_id = language.language_id WHERE category.name = 'Children' AND film.release_year BETWEEN 2000 AND 2010 AND film.rating IN ('G', 'PG') AND language.name = 'English' AND film.length <= 120 GROUP BY actor.actor_id, actor.first_name, actor.last_name ORDER BY COUNT(film.film_id) DESC LIMIT 1;",
+    "difficulty": "",
+    "source_instance_id": "local038"
+  },
+  {
+    "question_id": 8,
+    "db_id": "Pagila",
+    "question": "Please help me find the film category with the highest total rental hours in cities where the city's name either starts with \"A\" or contains a hyphen. ",
+    "evidence": "",
+    "SQL": "SELECT category.name FROM category INNER JOIN film_category USING (category_id) INNER JOIN film USING (film_id) INNER JOIN inventory USING (film_id) INNER JOIN rental USING (inventory_id) INNER JOIN customer USING (customer_id) INNER JOIN address USING (address_id) INNER JOIN city USING (city_id) WHERE LOWER(city.city) LIKE 'a%' OR city.city LIKE '%-%' GROUP BY category.name ORDER BY SUM(CAST((julianday(rental.return_date) - julianday(rental.rental_date)) * 24 AS INTEGER)) DESC LIMIT 1;",
+    "difficulty": "",
+    "source_instance_id": "local039"
+  },
+  {
+    "question_id": 9,
+    "db_id": "education_business",
+    "question": "Can you provide a list of hardware product segments along with their unique product counts for 2020 in the output, ordered by the highest percentage increase in unique fact sales products from 2020 to 2021?",
+    "evidence": "",
+    "SQL": "WITH UniqueProducts2020 AS ( SELECT dp.segment, COUNT(DISTINCT fsm.product_code) AS unique_products_2020 FROM hardware_fact_sales_monthly fsm JOIN hardware_dim_product dp ON fsm.product_code = dp.product_code WHERE fsm.fiscal_year = 2020 GROUP BY dp.segment ), UniqueProducts2021 AS ( SELECT dp.segment, COUNT(DISTINCT fsm.product_code) AS unique_products_2021 FROM hardware_fact_sales_monthly fsm JOIN hardware_dim_product dp ON fsm.product_code = dp.product_code WHERE fsm.fiscal_year = 2021 GROUP BY dp.segment ) SELECT spc.segment, spc.unique_products_2020 AS product_count_2020 FROM UniqueProducts2020 spc JOIN UniqueProducts2021 fup ON spc.segment = fup.segment ORDER BY ((fup.unique_products_2021 - spc.unique_products_2020) * 100.0) / (spc.unique_products_2020) DESC;",
+    "difficulty": "",
+    "source_instance_id": "local058"
+  },
+  {
+    "question_id": 10,
+    "db_id": "modern_data",
+    "question": "Calculate the total income from Meat Lovers pizzas priced at $12 and Vegetarian pizzas at $10. Include any extra toppings charged at $1 each. Ensure that canceled orders are filtered out. How much money has Pizza Runner earned in total?",
+    "evidence": "",
+    "SQL": "WITH get_extras_count AS ( WITH RECURSIVE split_extras AS ( SELECT order_id, TRIM(SUBSTR(extras, 1, INSTR(extras || ',', ',') - 1)) AS each_extra, SUBSTR(extras || ',', INSTR(extras || ',', ',') + 1) AS remaining_extras FROM pizza_clean_customer_orders UNION ALL SELECT order_id, TRIM(SUBSTR(remaining_extras, 1, INSTR(remaining_extras, ',') - 1)) AS each_extra, SUBSTR(remaining_extras, INSTR(remaining_extras, ',') + 1) FROM split_extras WHERE remaining_extras <> '' ) SELECT order_id, COUNT(each_extra) AS total_extras FROM split_extras GROUP BY order_id ), calculate_totals AS ( SELECT t1.order_id, t1.pizza_id, SUM( CASE WHEN pizza_id = 1 THEN 12 WHEN pizza_id = 2 THEN 10 END ) AS total_price, t3.total_extras FROM pizza_clean_customer_orders AS t1 JOIN pizza_clean_runner_orders AS t2 ON t2.order_id = t1.order_id LEFT JOIN get_extras_count AS t3 ON t3.order_id = t1.order_id WHERE t2.cancellation IS NULL GROUP BY t1.order_id, t1.pizza_id, t3.total_extras ) SELECT SUM(total_price) + SUM(total_extras) AS total_income FROM calculate_totals;",
+    "difficulty": "",
+    "source_instance_id": "local065"
+  },
+  {
+    "question_id": 11,
+    "db_id": "modern_data",
+    "question": "Based on our customer pizza order information, summarize the total quantity of each ingredient used in the pizzas we delivered. Output the name and quantity for each ingredient.",
+    "evidence": "",
+    "SQL": "WITH cte_cleaned_customer_orders AS ( SELECT *, ROW_NUMBER() OVER () AS original_row_number FROM pizza_clean_customer_orders ), split_regular_toppings AS ( SELECT pizza_id, TRIM(SUBSTR(toppings, 1, INSTR(toppings || ',', ',') - 1)) AS topping_id, SUBSTR(toppings || ',', INSTR(toppings || ',', ',') + 1) AS remaining_toppings FROM pizza_recipes UNION ALL SELECT pizza_id, TRIM(SUBSTR(remaining_toppings, 1, INSTR(remaining_toppings, ',') - 1)) AS topping_id, SUBSTR(remaining_toppings, INSTR(remaining_toppings, ',') + 1) AS remaining_toppings FROM split_regular_toppings WHERE remaining_toppings <> '' ), cte_base_toppings AS ( SELECT t1.order_id, t1.customer_id, t1.pizza_id, t1.order_time, t1.original_row_number, t2.topping_id FROM cte_cleaned_customer_orders AS t1 LEFT JOIN split_regular_toppings AS t2 ON t1.pizza_id = t2.pizza_id ), split_exclusions AS ( SELECT order_id, customer_id, pizza_id, order_time, original_row_number, TRIM(SUBSTR(exclusions, 1, INSTR(exclusions || ',', ',') - 1)) AS topping_id, SUBSTR(exclusions || ',', INSTR(exclusions || ',', ',') + 1) AS remaining_exclusions FROM cte_cleaned_customer_orders WHERE exclusions IS NOT NULL UNION ALL SELECT order_id, customer_id, pizza_id, order_time, original_row_number, TRIM(SUBSTR(remaining_exclusions, 1, INSTR(remaining_exclusions, ',') - 1)) AS topping_id, SUBSTR(remaining_exclusions, INSTR(remaining_exclusions, ',') + 1) AS remaining_exclusions FROM split_exclusions WHERE remaining_exclusions <> '' ), split_extras AS ( SELECT order_id, customer_id, pizza_id, order_time, original_row_number, TRIM(SUBSTR(extras, 1, INSTR(extras || ',', ',') - 1)) AS topping_id, SUBSTR(extras || ',', INSTR(extras || ',', ',') + 1) AS remaining_extras FROM cte_cleaned_customer_orders WHERE extras IS NOT NULL UNION ALL SELECT order_id, customer_id, pizza_id, order_time, original_row_number, TRIM(SUBSTR(remaining_extras, 1, INSTR(remaining_extras, ',') - 1)) AS topping_id, SUBSTR(remaining_extras, INSTR(remaining_extras, ',') + 1) AS remaining_extras FROM split_extras WHERE remaining_extras <> '' ), cte_combined_orders AS ( SELECT order_id, customer_id, pizza_id, order_time, original_row_number, topping_id FROM cte_base_toppings WHERE topping_id NOT IN (SELECT topping_id FROM split_exclusions WHERE split_exclusions.order_id = cte_base_toppings.order_id) UNION ALL SELECT order_id, customer_id, pizza_id, order_time, original_row_number, topping_id FROM split_extras ) SELECT t2.topping_name, COUNT(*) AS topping_count FROM cte_combined_orders AS t1 JOIN pizza_toppings AS t2 ON t1.topping_id = t2.topping_id GROUP BY t2.topping_name ORDER BY topping_count DESC;",
+    "difficulty": "",
+    "source_instance_id": "local066"
+  },
+  {
+    "question_id": 12,
+    "db_id": "bank_sales_trading",
+    "question": "Can you provide a breakdown of how many times each product was viewed, how many times they were added to the shopping cart, and how many times they were left in the cart without being purchased? Also, give me the count of actual purchases for each product. Ensure that products with a page id in (1, 2, 12, 13) are filtered out.",
+    "evidence": "",
+    "SQL": "WITH product_viewed AS ( SELECT t1.page_id, SUM(CASE WHEN event_type = 1 THEN 1 ELSE 0 END) AS n_page_views, SUM(CASE WHEN event_type = 2 THEN 1 ELSE 0 END) AS n_added_to_cart FROM shopping_cart_page_hierarchy AS t1 JOIN shopping_cart_events AS t2 ON t1.page_id = t2.page_id WHERE t1.product_id IS NOT NULL GROUP BY t1.page_id ), product_purchased AS ( SELECT t2.page_id, SUM(CASE WHEN event_type = 2 THEN 1 ELSE 0 END) AS purchased_from_cart FROM shopping_cart_page_hierarchy AS t1 JOIN shopping_cart_events AS t2 ON t1.page_id = t2.page_id WHERE t1.product_id IS NOT NULL AND EXISTS ( SELECT visit_id FROM shopping_cart_events WHERE event_type = 3 AND t2.visit_id = visit_id ) AND t1.page_id NOT IN (1, 2, 12, 13) GROUP BY t2.page_id ), product_abandoned AS ( SELECT t2.page_id, SUM(CASE WHEN event_type = 2 THEN 1 ELSE 0 END) AS abandoned_in_cart FROM shopping_cart_page_hierarchy AS t1 JOIN shopping_cart_events AS t2 ON t1.page_id = t2.page_id WHERE t1.product_id IS NOT NULL AND NOT EXISTS ( SELECT visit_id FROM shopping_cart_events WHERE event_type = 3 AND t2.visit_id = visit_id ) AND t1.page_id NOT IN (1, 2, 12, 13) GROUP BY t2.page_id ) SELECT t1.page_id, t1.page_name, t2.n_page_views AS 'number of product being viewed', t2.n_added_to_cart AS 'number added to the cart', t4.abandoned_in_cart AS 'without being purchased in cart', t3.purchased_from_cart AS 'count of actual purchases' FROM shopping_cart_page_hierarchy AS t1 JOIN product_viewed AS t2 ON t2.page_id = t1.page_id JOIN product_purchased AS t3 ON t3.page_id = t1.page_id JOIN product_abandoned AS t4 ON t4.page_id = t1.page_id;",
+    "difficulty": "",
+    "source_instance_id": "local075"
+  },
+  {
+    "question_id": 13,
+    "db_id": "bank_sales_trading",
+    "question": "Identify the top 10 and bottom 10 interest categories based on their highest composition values across all months. For each category, display the time(MM-YYYY), interest name, and the composition value",
+    "evidence": "",
+    "SQL": "WITH get_interest_rank AS ( SELECT t1.month_year, t2.interest_name, t1.composition, RANK() OVER ( PARTITION BY t2.interest_name ORDER BY t1.composition DESC ) AS interest_rank FROM interest_metrics AS t1 JOIN interest_map AS t2 ON t1.interest_id = t2.id WHERE t1.month_year IS NOT NULL ), get_top_10 AS ( SELECT month_year, interest_name, composition FROM get_interest_rank WHERE interest_rank = 1 ORDER BY composition DESC LIMIT 10 ), get_bottom_10 AS ( SELECT month_year, interest_name, composition FROM get_interest_rank WHERE interest_rank = 1 ORDER BY composition ASC LIMIT 10 ) SELECT * FROM get_top_10 UNION SELECT * FROM get_bottom_10 ORDER BY composition DESC;",
+    "difficulty": "",
+    "source_instance_id": "local078"
+  },
+  {
+    "question_id": 14,
+    "db_id": "Db-IMDB",
+    "question": "I need you to look into the actor collaborations and tell me how many actors have made more films with Yash Chopra than with any other director. This will help us understand his influence on the industry better.",
+    "evidence": "",
+    "SQL": "WITH YASH_CHOPRAS_PID AS ( SELECT TRIM(P.PID) AS PID FROM Person P WHERE TRIM(P.Name) = 'Yash Chopra' ), NUM_OF_MOV_BY_ACTOR_DIRECTOR AS ( SELECT TRIM(MC.PID) AS ACTOR_PID, TRIM(MD.PID) AS DIRECTOR_PID, COUNT(DISTINCT TRIM(MD.MID)) AS NUM_OF_MOV FROM M_Cast MC JOIN M_Director MD ON TRIM(MC.MID) = TRIM(MD.MID) GROUP BY ACTOR_PID, DIRECTOR_PID ), NUM_OF_MOVIES_BY_YC AS ( SELECT NM.ACTOR_PID, NM.DIRECTOR_PID, NM.NUM_OF_MOV AS NUM_OF_MOV_BY_YC FROM NUM_OF_MOV_BY_ACTOR_DIRECTOR NM JOIN YASH_CHOPRAS_PID YCP ON NM.DIRECTOR_PID = YCP.PID ), MAX_MOV_BY_OTHER_DIRECTORS AS ( SELECT ACTOR_PID, MAX(NUM_OF_MOV) AS MAX_NUM_OF_MOV FROM NUM_OF_MOV_BY_ACTOR_DIRECTOR NM JOIN YASH_CHOPRAS_PID YCP ON NM.DIRECTOR_PID <> YCP.PID GROUP BY ACTOR_PID ), ACTORS_MOV_COMPARISION AS ( SELECT NMY.ACTOR_PID, CASE WHEN NMY.NUM_OF_MOV_BY_YC > IFNULL(NMO.MAX_NUM_OF_MOV, 0) THEN 'Y' ELSE 'N' END AS MORE_MOV_BY_YC FROM NUM_OF_MOVIES_BY_YC NMY LEFT OUTER JOIN MAX_MOV_BY_OTHER_DIRECTORS NMO ON NMY.ACTOR_PID = NMO.ACTOR_PID ) SELECT COUNT(DISTINCT TRIM(P.PID)) AS \"Number of actor\" FROM Person P WHERE TRIM(P.PID) IN ( SELECT DISTINCT ACTOR_PID FROM ACTORS_MOV_COMPARISION WHERE MORE_MOV_BY_YC = 'Y' );",
+    "difficulty": "",
+    "source_instance_id": "local099"
+  },
+  {
+    "question_id": 15,
+    "db_id": "EntertainmentAgency",
+    "question": "Could you list each musical style with the number of times it appears as a 1st, 2nd, or 3rd preference in a single row per style?",
+    "evidence": "",
+    "SQL": "SELECT Musical_Styles.StyleName, COUNT(RankedPreferences.FirstStyle) AS FirstPreference, COUNT(RankedPreferences.SecondStyle) AS SecondPreference, COUNT(RankedPreferences.ThirdStyle) AS ThirdPreference FROM Musical_Styles, (SELECT (CASE WHEN Musical_Preferences.PreferenceSeq = 1 THEN Musical_Preferences.StyleID ELSE Null END) As FirstStyle, (CASE WHEN Musical_Preferences.PreferenceSeq = 2 THEN Musical_Preferences.StyleID ELSE Null END) As SecondStyle, (CASE WHEN Musical_Preferences.PreferenceSeq = 3 THEN Musical_Preferences.StyleID ELSE Null END) AS ThirdStyle FROM Musical_Preferences) AS RankedPreferences WHERE Musical_Styles.StyleID = RankedPreferences.FirstStyle OR Musical_Styles.StyleID = RankedPreferences.SecondStyle OR Musical_Styles.StyleID = RankedPreferences.ThirdStyle GROUP BY StyleID, StyleName HAVING COUNT(FirstStyle) > 0 OR COUNT(SecondStyle) > 0 OR COUNT(ThirdStyle) > 0 ORDER BY FirstPreference DESC, SecondPreference DESC, ThirdPreference DESC, StyleID;",
+    "difficulty": "",
+    "source_instance_id": "local131"
+  },
+  {
+    "question_id": 16,
+    "db_id": "education_business",
+    "question": "Which university faculty members' salaries are closest to the average salary for their respective ranks? Please provide the ranks, first names, last names, and salaries.university",
+    "evidence": "",
+    "SQL": "WITH AvgSalaries AS ( SELECT facrank AS FacRank, AVG(facsalary) AS AvSalary FROM university_faculty GROUP BY facrank ), SalaryDifferences AS ( SELECT university_faculty.facrank AS FacRank, university_faculty.facfirstname AS FacFirstName, university_faculty.faclastname AS FacLastName, university_faculty.facsalary AS Salary, ABS(university_faculty.facsalary - AvgSalaries.AvSalary) AS Diff FROM university_faculty JOIN AvgSalaries ON university_faculty.facrank = AvgSalaries.FacRank ), MinDifferences AS ( SELECT FacRank, MIN(Diff) AS MinDiff FROM SalaryDifferences GROUP BY FacRank ) SELECT s.FacRank, s.FacFirstName, s.FacLastName, s.Salary FROM SalaryDifferences s JOIN MinDifferences m ON s.FacRank = m.FacRank AND s.Diff = m.MinDiff;",
+    "difficulty": "",
+    "source_instance_id": "local163"
+  },
+  {
+    "question_id": 17,
+    "db_id": "sqlite-sakila",
+    "question": "Among our top 10 paying customers, can you identify the largest change in payment amounts from one month to the immediately following month? Specifically, please determine for which customer and during which month this maximum month-over-month difference occurred, and provide the difference rounded to two decimal places.",
+    "evidence": "",
+    "SQL": "WITH result_table AS ( SELECT strftime('%m', pm.payment_date) AS pay_mon, customer_id, COUNT(pm.amount) AS pay_countpermon, SUM(pm.amount) AS pay_amount FROM payment AS pm GROUP BY pay_mon, customer_id ), top10_customer AS ( SELECT customer_id, SUM(tb.pay_amount) AS total_payments FROM result_table AS tb GROUP BY customer_id ORDER BY SUM(tb.pay_amount) DESC LIMIT 10 ), difference_per_mon AS ( SELECT pay_mon AS month_number, pay_mon AS month, tb.pay_countpermon, tb.pay_amount, ABS(tb.pay_amount - LAG(tb.pay_amount) OVER (PARTITION BY tb.customer_id)) AS diff FROM result_table tb JOIN top10_customer top ON top.customer_id = tb.customer_id ) SELECT month, ROUND(max_diff, 2) AS max_diff FROM ( SELECT month, diff, month_number, MAX(diff) OVER (PARTITION BY month) AS max_diff FROM difference_per_mon ) AS max_per_mon WHERE diff = max_diff ORDER BY max_diff DESC LIMIT 1;",
+    "difficulty": "",
+    "source_instance_id": "local197"
+  },
+  {
+    "question_id": 18,
+    "db_id": "sqlite-sakila",
+    "question": "Can you identify the year and month with the highest rental orders created by the store's staff for each store? Please list the store ID, the year, the month, and the total rentals for those dates.",
+    "evidence": "",
+    "SQL": "WITH result_table AS ( SELECT strftime('%Y', RE.RENTAL_DATE) AS YEAR, strftime('%m', RE.RENTAL_DATE) AS RENTAL_MONTH, ST.STORE_ID, COUNT(RE.RENTAL_ID) AS count FROM RENTAL RE JOIN STAFF ST ON RE.STAFF_ID = ST.STAFF_ID GROUP BY YEAR, RENTAL_MONTH, ST.STORE_ID ), monthly_sales AS ( SELECT YEAR, RENTAL_MONTH, STORE_ID, SUM(count) AS total_rentals FROM result_table GROUP BY YEAR, RENTAL_MONTH, STORE_ID ), store_max_sales AS ( SELECT STORE_ID, YEAR, RENTAL_MONTH, total_rentals, MAX(total_rentals) OVER (PARTITION BY STORE_ID) AS max_rentals FROM monthly_sales ) SELECT STORE_ID, YEAR, RENTAL_MONTH, total_rentals FROM store_max_sales WHERE total_rentals = max_rentals ORDER BY STORE_ID;",
+    "difficulty": "",
+    "source_instance_id": "local199"
+  },
+  {
+    "question_id": 19,
+    "db_id": "delivery_center",
+    "question": "Can you identify the hubs that saw more than a 20% increase in finished orders from February to March?",
+    "evidence": "",
+    "SQL": "WITH february_orders AS ( SELECT h.hub_name AS hub_name, COUNT(*) AS orders_february FROM orders o LEFT JOIN stores s ON o.store_id = s.store_id LEFT JOIN hubs h ON s.hub_id = h.hub_id WHERE o.order_created_month = 2 AND o.order_status = 'FINISHED' GROUP BY h.hub_name ), march_orders AS ( SELECT h.hub_name AS hub_name, COUNT(*) AS orders_march FROM orders o LEFT JOIN stores s ON o.store_id = s.store_id LEFT JOIN hubs h ON s.hub_id = h.hub_id WHERE o.order_created_month = 3 AND o.order_status = 'FINISHED' GROUP BY h.hub_name ) SELECT fo.hub_name FROM february_orders fo LEFT JOIN march_orders mo ON fo.hub_name = mo.hub_name WHERE fo.orders_february > 0 AND mo.orders_march > 0 AND (CAST((mo.orders_march - fo.orders_february) AS REAL) / CAST(fo.orders_february AS REAL)) > 0.2",
+    "difficulty": "",
+    "source_instance_id": "local210"
+  },
+  {
+    "question_id": 20,
+    "db_id": "EU_soccer",
+    "question": "In each league, considering all seasons, which single team has the fewest total match wins based on comparing home and away goals, including teams with zero wins, ensuring that if multiple teams tie for the fewest wins, only one team is returned for each league?",
+    "evidence": "",
+    "SQL": "WITH match_view AS( SELECT M.id, L.name AS league, M.season, M.match_api_id, T.team_long_name AS home_team, TM.team_long_name AS away_team, M.home_team_goal, M.away_team_goal, P1.player_name AS home_gk, P2.player_name AS home_center_back_1, P3.player_name AS home_center_back_2, P4.player_name AS home_right_back, P5.player_name AS home_left_back, P6.player_name AS home_midfield_1, P7.player_name AS home_midfield_2, P8.player_name AS home_midfield_3, P9.player_name AS home_midfield_4, P10.player_name AS home_second_forward, P11.player_name AS home_center_forward, P12.player_name AS away_gk, P13.player_name AS away_center_back_1, P14.player_name AS away_center_back_2, P15.player_name AS away_right_back, P16.player_name AS away_left_back, P17.player_name AS away_midfield_1, P18.player_name AS away_midfield_2, P19.player_name AS away_midfield_3, P20.player_name AS away_midfield_4, P21.player_name AS away_second_forward, P22.player_name AS away_center_forward, M.goal, M.card FROM match M LEFT JOIN league L ON M.league_id = L.id LEFT JOIN team T ON M.home_team_api_id = T.team_api_id LEFT JOIN team TM ON M.away_team_api_id = TM.team_api_id LEFT JOIN player P1 ON M.home_player_1 = P1.player_api_id LEFT JOIN player P2 ON M.home_player_2 = P2.player_api_id LEFT JOIN player P3 ON M.home_player_3 = P3.player_api_id LEFT JOIN player P4 ON M.home_player_4 = P4.player_api_id LEFT JOIN player P5 ON M.home_player_5 = P5.player_api_id LEFT JOIN player P6 ON M.home_player_6 = P6.player_api_id LEFT JOIN player P7 ON M.home_player_7 = P7.player_api_id LEFT JOIN player P8 ON M.home_player_8 = P8.player_api_id LEFT JOIN player P9 ON M.home_player_9 = P9.player_api_id LEFT JOIN player P10 ON M.home_player_10 = P10.player_api_id LEFT JOIN player P11 ON M.home_player_11 = P11.player_api_id LEFT JOIN player P12 ON M.away_player_1 = P12.player_api_id LEFT JOIN player P13 ON M.away_player_2 = P13.player_api_id LEFT JOIN player P14 ON M.away_player_3 = P14.player_api_id LEFT JOIN player P15 ON M.away_player_4 = P15.player_api_id LEFT JOIN player P16 ON M.away_player_5 = P16.player_api_id LEFT JOIN player P17 ON M.away_player_6 = P17.player_api_id LEFT JOIN player P18 ON M.away_player_7 = P18.player_api_id LEFT JOIN player P19 ON M.away_player_8 = P19.player_api_id LEFT JOIN player P20 ON M.away_player_9 = P20.player_api_id LEFT JOIN player P21 ON M.away_player_10 = P21.player_api_id LEFT JOIN player P22 ON M.away_player_11 = P22.player_api_id ), match_score AS ( SELECT id, home_team AS team, CASE WHEN home_team_goal > away_team_goal THEN 1 ELSE 0 END AS Winning_match FROM match_view UNION ALL SELECT id, away_team AS team, CASE WHEN away_team_goal > home_team_goal THEN 1 ELSE 0 END AS Winning_match FROM match_view ), winning_matches AS ( SELECT MV.league, M.team, COUNT(CASE WHEN M.Winning_match = 1 THEN 1 END) AS wins, ROW_NUMBER() OVER(PARTITION BY MV.league ORDER BY COUNT(CASE WHEN M.Winning_match = 1 THEN 1 END) ASC) AS rn FROM match_score M JOIN match_view MV ON M.id = MV.id GROUP BY MV.league, team ORDER BY league, wins ASC ) SELECT league, team FROM winning_matches WHERE rn = 1 ORDER BY league;",
+    "difficulty": "",
+    "source_instance_id": "local219"
+  },
+  {
+    "question_id": 21,
+    "db_id": "bank_sales_trading",
+    "question": "For weekly-sales data, I need an analysis of our sales performance around mid-June for the years 2018, 2019, and 2020. Specifically, calculate the percentage change in sales between the four weeks leading up to June 15 and the four weeks following June 15 for each year.",
+    "evidence": "",
+    "SQL": "SELECT before_effect, after_effect, after_effect - before_effect AS change_amount, ROUND(((after_effect * 1.0 / before_effect) - 1) * 100, 2) AS percent_change, '2018' AS year FROM ( SELECT SUM(CASE WHEN delta_weeks BETWEEN 1 AND 4 THEN sales END) AS after_effect, SUM(CASE WHEN delta_weeks BETWEEN -3 AND 0 THEN sales END) AS before_effect FROM ( SELECT week_date, ROUND((JULIANDAY(week_date) - JULIANDAY('2018-06-15')) / 7.0) + 1 AS delta_weeks, sales FROM cleaned_weekly_sales ) add_delta_weeks ) AS add_before_after UNION ALL SELECT before_effect, after_effect, after_effect - before_effect AS change_amount, ROUND(((after_effect * 1.0 / before_effect) - 1) * 100, 2) AS percent_change, '2019' AS year FROM ( SELECT SUM(CASE WHEN delta_weeks BETWEEN 1 AND 4 THEN sales END) AS after_effect, SUM(CASE WHEN delta_weeks BETWEEN -3 AND 0 THEN sales END) AS before_effect FROM ( SELECT week_date, ROUND((JULIANDAY(week_date) - JULIANDAY('2019-06-15')) / 7.0) + 1 AS delta_weeks, sales FROM cleaned_weekly_sales ) add_delta_weeks ) AS add_before_after UNION ALL SELECT before_effect, after_effect, after_effect - before_effect AS change_amount, ROUND(((after_effect * 1.0 / before_effect) - 1) * 100, 2) AS percent_change, '2020' AS year FROM ( SELECT SUM(CASE WHEN delta_weeks BETWEEN 1 AND 4 THEN sales END) AS after_effect, SUM(CASE WHEN delta_weeks BETWEEN -3 AND 0 THEN sales END) AS before_effect FROM ( SELECT week_date, ROUND((JULIANDAY(week_date) - JULIANDAY('2020-06-15')) / 7.0) + 1 AS delta_weeks, sales FROM cleaned_weekly_sales ) add_delta_weeks ) AS add_before_after ORDER BY year;",
+    "difficulty": "",
+    "source_instance_id": "local301"
+  },
+  {
+    "question_id": 22,
+    "db_id": "f1",
+    "question": "For each year, which driver and which constructor scored the most points? I want the full name of each driver.",
+    "evidence": "",
+    "SQL": "with year_points as ( select races.year, drivers.forename || ' ' || drivers.surname as driver, constructors.name as constructor, sum(results.points) as points from results left join races on results.race_id = races.race_id left join drivers on results.driver_id = drivers.driver_id left join constructors on results.constructor_id = constructors.constructor_id group by races.year, driver union select races.year, null as driver, constructors.name as constructor, sum(results.points) as points from results left join races on results.race_id = races.race_id left join drivers on results.driver_id = drivers.driver_id left join constructors on results.constructor_id = constructors.constructor_id group by races.year, constructor ), max_points as ( select year, max(case when driver is not null then points else null end) as max_driver_points, max(case when constructor is not null then points else null end) as max_constructor_points from year_points group by year ) select max_points.year, drivers_year_points.driver, constructors_year_points.constructor from max_points left join year_points as drivers_year_points on max_points.year = drivers_year_points.year and max_points.max_driver_points = drivers_year_points.points and drivers_year_points.driver is not null left join year_points as constructors_year_points on max_points.year = constructors_year_points.year and max_points.max_constructor_points = constructors_year_points.points and constructors_year_points.constructor is not null order by max_points.year;",
+    "difficulty": "",
+    "source_instance_id": "local309"
+  }
+]

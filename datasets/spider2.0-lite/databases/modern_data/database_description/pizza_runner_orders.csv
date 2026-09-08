@@ -1,0 +1,7 @@
+original_column_name,column_name,column_description,data_format,value_description
+order_id,,,INTEGER,
+runner_id,,,INTEGER,
+pickup_time,,,TEXT,
+distance,,,TEXT,
+duration,,,TEXT,
+cancellation,,,TEXT,
